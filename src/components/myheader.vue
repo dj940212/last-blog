@@ -14,7 +14,7 @@
                     <li class="memu-item">归档</li>
                     <li class="memu-item">关于</li>
                     <li class="memu-item">搜索</li>
-                    <li class="memu-item">写博客</li>
+                    <li class="memu-item"><router-link to="/article/write">写博客</router-link></li>
                 </nav>
             </div>
         </div>
