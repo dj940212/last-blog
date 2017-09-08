@@ -2,14 +2,15 @@
     <div class="overview">
         <div class="popular">
             <p>Popular articles</p>
-            <ul >
+            <!-- <ul >
                 <li class="article" v-for="article in articleList">
                     <h5 class="title">{{article.title}}</h5>
                     <div class="description">{{article.description}}</div>
                     <span class="babel">{{article.babel[1]}}</span>
                     <span class="watch"></span>
                 </li>
-            </ul>
+            </ul> -->
+            <activityMap></activityMap>
         </div>
     </div>
 </template>
@@ -17,9 +18,10 @@
 <script>
 import axios from 'axios'
 import {mapGetters, mapMutations} from 'vuex'
+import activityMap from '@/components/activityMap'
 export default {
     mounted() {
-        this.getList()
+        // this.getList()
     },
     computed: {
         ...mapGetters([
@@ -40,6 +42,9 @@ export default {
             this.setArticleList(res.data.data)
             console.log(this.articleList)
         },
+    },
+    components: {
+        activityMap
     }
     
 }
