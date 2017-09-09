@@ -1,8 +1,8 @@
 <template lang="html">
     <div class="overview">
         <ul>
-            <li class="active">OverView</li>
-            <li>AllArticle</li>
+            <router-link to='/overview'><li>OverView</li></router-link>
+            <router-link to='/list'><li>AllArticle</li></router-link>
             <li>TimeLine</li>
             <li>Followers</li>
             <li>Following</li>
@@ -40,6 +40,11 @@ export default {
                 color: #24292e;
                 
             }
+        }
+        .router-link-active {
+            border-bottom:  2px solid #e36209;
+            color: #24292e;
+            // border: 0;
         }
     }
 </style>

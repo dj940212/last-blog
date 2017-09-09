@@ -1,30 +1,39 @@
 <template>
-
     <div id="editor" class="editor">
-       <div id="toolbar" v-show="false">
-          <span id="mode" class="icon-mode" @click="getArticle"></span>
-          <span id="hinted" class="icon-pre disabled" title="Toggle Markdown Hints" @click="saveAsMarkdown"></span>
-          <span id="tomd" title="to markdown" @click="publish">MD</span>
-        </div>
         <div class="title">
-            <div class="title-inner">
-                <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg>
-                <strong v-if="mode==='read'">{{articleList[currentIndex].title}}</strong>
-                <input v-if="mode=='write'" type="text" placeholder="title of this article" v-model="title">
-                <div class="btn"></div>
+            <div class="title-box">
+                <div class="title-inner">
+                    <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg>
+                    <strong v-if="mode==='read'">{{article.title}}</strong>
+                    <input ref="writeTitle" v-if="mode=='write'" type="text" placeholder="title of this article" v-model="writeTitle">
+                    <input ref="updateTitle" v-if="mode=='update'" type="text" placeholder="title of this article" v-model="updateTitle">
+                </div>
+                <div class="setting">
+                    <i class="iconfont icon-shezhi" @click="publish"></i>
+                    <button><i class="iconfont icon-shezhi" @click="publish"></i>1233245</button>
+                    <button><i class="iconfont icon-liulan" @click="publish"></i>watch <span></span></button>
+                </div>
+                <div class="setting-panel" v-show="false">
+                    <div class="setting-item"></div>
+                    <div class="setting-item"></div>
+                    <div class="setting-item"></div>
+                    <div class="setting-item"></div>
+                    <div class="setting-item"></div>
+                </div>
             </div>
         </div>
         <div class="description">
-            <div class="desContent" v-if="mode==='read'">{{articleList[currentIndex].description || "No description, website, or topics provided."}}</div>
-            <input v-if="mode=='write'" type="text" v-model="description" placeholder="Short description of this article">
-            <button class="edit-btn" @click="publish">Save</button>
+            <div class="desContent" v-if="mode==='read'">{{article.description || "No description..."}}</div>
+            <input ref="writeDesc" v-if="mode=='write'" type="text" v-model="writeDesc" placeholder="Short description of this article">
+            <input ref="updateDesc" v-if="mode=='update'" type="text" v-model="updateDesc" placeholder="Short description of this article">
+            
         </div>
-        <div v-show="true" class="toolbar">
+        <div v-show="false" class="toolbar">
             <ul>
                 <li @click="update"> update </li>
-                <li @click="edit"> Edit </li>
+                <li @click="isEdit"> Edit </li>
                 <li @click="deleteArt"> Delete </li>
-                <li> contributor</li>
+                <li @click="hinted"> contributor</li>
             </ul>
         </div>
         <div class="content">
@@ -32,13 +41,14 @@
                 <svg aria-hidden="true" class="octicon octicon-book" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M3 5h4v1H3V5zm0 3h4V7H3v1zm0 2h4V9H3v1zm11-5h-4v1h4V5zm0 2h-4v1h4V7zm0 2h-4v1h4V9zm2-6v9c0 .55-.45 1-1 1H9.5l-1 1-1-1H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h5.5l1 1 1-1H15c.55 0 1 .45 1 1zm-8 .5L7.5 3H2v9h6V3.5zm7-.5H9.5l-.5.5V12h6V3z"></path>
                 </svg>
                 <span>README.md</span>
+                <button class="publish" @click="publish">Publish</button>
             </div>
             <div class="content-inner">
-                <div id="pen" data-toggle="pen" ref="penArea">
-                  
-                </div>
+                <div id="pen" data-toggle="pen" ref="pen"></div>
             </div>
+            
         </div>
+        
     </div>
 </template>
 
@@ -54,22 +64,38 @@ import '@/common/js/markdown.js'
 export default {
     data() {
         return {
-            article : "",
-            title: '',
-            description: '',
-            endAticle: null
+            article : {},
+            writeTitle: '',
+            writeDesc: '',
+            updateTitle: '',
+            updateDesc:'',
         }
     },
     mounted() {
     	this.init()
-        console.log(this.articleList,this.currentIndex,this.mode)
-        this.mode === "read" && this.getArticle(this.currentIndex)
+        console.log("params",this.$route.params)
+        console.log("mode:",this.mode)
+        if(this.mode === 'write') {
+            document.getElementById('pen').innerHTML = '在此书写...'
+            this.pen.rebuild()
+            
+        }else if (this.$route.params._id !== 'write') {
+            this.setArticleMode("read")
+            this.getArticle(this.$route.params._id)
+        } 
+    },
+    beforeUpdate() {
+        if (this.mode === 'write') {
+            document.getElementById('pen').innerHTML = '在此书写...'
+            this.pen.rebuild()
+        }
     },
     computed: {
         ...mapGetters([
             'articleList',
             'mode',
-            'currentIndex'
+            'currentIndex',
+            '_id'
         ])
     },
     methods: {
@@ -78,7 +104,7 @@ export default {
             setArticleMode: 'SET_ARTICLE_MODE'
         }),
     	init() {
-            var options = {
+            const options = {
                 // toolbar: document.getElementById('custom-toolbar'),
                 editor: document.querySelector('[data-toggle="pen"]'),
                 debug: true,
@@ -87,23 +113,14 @@ export default {
                   'indent', 'outdent', 'bold', 'italic', 'underline', 'createlink'
                 ]
             };
-
             // create editor
-            var pen = this.pen = window.pen = new Pen(options);
-            console.log(pen.markdown)
-
-            pen.focus();
+            this.pen = new Pen(options);
+            this.pen.destroy();
     	},
-        edit() {
-            var text = this.textContent;
-
-            if(this.classList.contains('disabled')) {
-              this.classList.remove('disabled');
-              pen.rebuild();
-            } else {
-              this.classList.add('disabled');
-              pen.destroy();
-            }
+        isEdit() {
+            this.pen.rebuild()
+            // this.pen.focus();
+            this.setArticleMode('update')
         },
         tomd() {
             var text = pen.toMd();
@@ -120,7 +137,7 @@ export default {
               this.classList.remove('disabled');
             }
         },
-        // 保存
+        // 保存新文章
         save(code, name){
           var URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
           navigator.saveBlob = navigator.saveBlob || navigator.msSaveBlob || navigator.mozSaveBlob || navigator.webkitSaveBlob;
@@ -157,42 +174,66 @@ export default {
                 console.info(reader.result);
             }
         },
+        // 发布新文章
         async publish() {
-            var htmlContent = document.getElementById('pen').innerHTML
-            var res = await axios.post('http://localhost:3000/api/article/save',{
-                title: this.title,
-                content: htmlContent,
-                description: this.description,
-                babel: 'javascript,css,html'
-            })
-            console.log(res.data)
-            this.articleList.unshift(res.data)
-            const len = this.articleList.length
-            console.log(len)
-            // this.$router.push({ name:'article', params: { _id: this.articleList[0]._id}})
+            const htmlContent = this.$refs.pen.innerHTML
+            !this.writeDesc && this.$refs.writeDesc.focus()
+            !this.writeTitle && this.$refs.writeTitle.focus()
+            !htmlContent && this.$refs.pen.focus()
+            if (this.writeTitle && this.writeDesc && htmlContent) {
+                const res = await axios.post('http://localhost:3000/api/article/save',{
+                    title: this.writeTitle,
+                    content: htmlContent,
+                    description: this.writeDesc,
+                    babel: 'javascript,css,html'
+                })
+                console.log(res.data)
+                this.setArticleMode('read')
+                this.getArticle(res.data.data._id)
+            }else {
+                console.log('信息不完整')
+            }
+            
+            
         },
         async update() {
-            var article = this.articleList[this.currentIndex]
-            var htmlContent = document.getElementById('pen').innerHTML
-            var res = await axios.post('http://localhost:3000/api/article/update',{
-                title: article.title,
-                description: article.description,
-                content: htmlContent,
-                _id: article._id,
-                babel: 'javascript,css,html'
-            })
+            const htmlContent = document.getElementById('pen').innerHTML
+            console.log(this.updateDesc,this.updateTitle)
+            !this.updateDesc && this.$refs.updateDesc.focus();
+            !this.updateTitle && this.$refs.updateTitle.focus()
+            !htmlContent && this.$refs.pen.focus()
+            if (this.updateDesc && this.updateTitle && htmlContent) {
+                const res = await axios.post('http://localhost:3000/api/article/update',{
+                    title: this.updateTitle,
+                    description: this.updateDesc,
+                    content: htmlContent,
+                    _id: this.$route.params._id,
+                    babel: 'javascript,css,html'
+                })
+                this.setArticleMode('read')
+                this.getArticle(this.$route.params._id)
+            }else{
+                console.log('信息不完整')
+            }
+            
         },
         async deleteArt() {
             var res = await axios.post('http://localhost:3000/api/article/delete',{
-                _id: this.articleList[this.currentIndex]._id
+                _id: this._id
             })
             console.log(res.data)
             this.$router.push({name:'list'})
         },
-        async getArticle(index) {
-            var res = await axios.get('http://localhost:3000/api/article/list')
-            console.log(res.data.data[index])
-            document.getElementById('pen').innerHTML = res.data.data[index].content
+        async getArticle(_id) {
+            const res = await axios.get(`http://localhost:3000/api/article/read`,{
+                params: {_id:_id}
+            })
+            console.log("我是ｉｄ",this._id)
+            this.article = res.data.data
+            this.updateTitle = this.article.title
+            this.updateDesc = this.article.description
+            document.getElementById('pen').innerHTML = this.article.content
+            console.log(res.data)
         }
     },
 }
@@ -206,38 +247,78 @@ export default {
             height: 69px;
             border-bottom: 1px solid @border-color;
             background-color: #fafbfc;
-            .title-inner {
-                box-sizing: border-box;
+            .title-box{
+                justify-content: space-between;
                 width: @content-width;
                 margin: 0 auto;
-                height: 69px;
                 display: flex;
-                align-items: center;
-                strong {
-                    line-height: 16px;
-                    margin-left: 10px;
-                    color: #0366d6;
-                }
-                input {
+                position: relative;
+                .title-inner {
                     box-sizing: border-box;
-                    border: 1px solid #d1d5da;
+                    height: 69px;
+                    display: flex;
+                    align-items: center;
+                    strong {
+                        line-height: 16px;
+                        margin-left: 10px;
+                        color: #0366d6;
+                    }
+                    input {
+                        box-sizing: border-box;
+                        border: 1px solid #d1d5da;
+                        border-radius: 3px;
+                        color: #24292e;
+                        font-size: 14px;
+                        padding: 6px 8px;
+                        box-shadow: inset 0 1px 2px rgba(27,31,35,0.075);
+                        background-color: #fafbfc;
+                        width: 300px;
+                        height: 36px;
+                        margin-left: 10px;
+                    }
+                    button {
+                        color: #24292e;
+                        height: 28px;
+                        border-radius: 3px;
+                        box-shadow:0;
+                        background-color: #eff3f6;
+                        border: 1px solid @border-color;
+                        // align-self: end;
+                    }
+                }
+                .setting {
+                    align-self: center;
+                    cursor: pointer;
+                    .iconfont {
+                        font-size: 20px;
+                    }
+                    
+
+                }
+                .setting-panel {
+                    position: absolute;
+                    width: 200px;
+                    z-index: 10;
+                    right: 0;
+                    top: 55px;
+                    background-color: #fff;
                     border-radius: 3px;
-                    color: #24292e;
-                    font-size: 14px;
-                    padding: 6px 8px;
-                    box-shadow: inset 0 1px 2px rgba(27,31,35,0.075);
-                    background-color: #fafbfc;
-                    width: 300px;
-                    height: 36px;
-                    margin-left: 10px;
+                    border:1px solid @border-color;
+                    padding: 5px;
+                    .setting-item {
+                        height: 30px;
+                        border-bottom: 1px solid @border-color;
+                    }
                 }
             }
+            
         }
         .description {
             width: @content-width;
             display: flex;
             margin: 20px auto;
             justify-content: space-between;
+            
             .desContent {
                 font-size: 14px;
                 color: rgba(0, 0, 0, 0.7);
@@ -255,17 +336,8 @@ export default {
                 padding: 6px 8px;
                 box-shadow: inset 0 1px 2px rgba(27,31,35,0.075);
                 background-color: #fafbfc;
-                width: 80%;
+                width: 100%;
                 height: 36px;
-            }
-            button {
-                color: #24292e;
-                width: 43px;
-                height: 28px;
-                border-radius: 3px;
-                box-shadow:0;
-                background-color: #eff3f6;
-                border: 1px solid @border-color;
             }
         }
         .toolbar {
@@ -296,6 +368,7 @@ export default {
                 display: flex;
                 align-items: center;
                 padding: 9px 10px 10px;
+                position: relative;
                 span {
                     margin-left: 4px;
                     font-size: 14px;
@@ -303,10 +376,25 @@ export default {
                     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
                     line-height: 20px;
                 }
+                button {
+                    color: #24292e;
+                    height: 28px;
+                    border-radius: 3px;
+                    position: absolute;
+                    box-shadow:0;
+                    background-color: #eff3f6;
+                    border: 1px solid @border-color;
+                    // align-self: end;
+                    right: 0;
+                }
             }
             .content-inner {
-                padding: 45px;
+                padding:30px 45px;
             }
+        }
+        .publish {
+
+            float: right;
         }
     }
     small{

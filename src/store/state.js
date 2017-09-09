@@ -1,7 +1,8 @@
 const state = {
-    mode: "write",
+    mode: "read",
     articleList: [],
     currentIndex: -1,
+    _id: ''
 }
 
 export default state

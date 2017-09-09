@@ -2,14 +2,57 @@
     <div class="overview">
         <div class="popular">
             <p>Popular articles</p>
-            <!-- <ul >
-                <li class="article" v-for="article in articleList">
-                    <h5 class="title">{{article.title}}</h5>
-                    <div class="description">{{article.description}}</div>
-                    <span class="babel">{{article.babel[1]}}</span>
-                    <span class="watch"></span>
+            <ul >
+                <li class="article">
+                    <h5 class="title">{{articleList[0].title}}</h5>
+                    <div class="description">{{articleList[0].description}}</div>
+                    <div class="marker">
+                        <span class="babel">{{articleList[5].babel[1]}}</span>
+                        <span class="watch">123</span>
+                    </div>
                 </li>
-            </ul> -->
+                <li class="article">
+                    <h5 class="title">{{articleList[1].title}}</h5>
+                    <div class="description">{{articleList[1].description}}</div>
+                    <div class="marker">
+                        <span class="babel">{{articleList[5].babel[1]}}</span>
+                        <span class="watch"></span>
+                    </div>
+                </li>
+                <li class="article">
+                    <h5 class="title">{{articleList[2].title}}</h5>
+                    <div class="description">{{articleList[2].description}}</div>
+                    <div class="marker">
+                        <span class="babel">{{articleList[5].babel[1]}}</span>
+                        <span class="watch"></span>
+                    </div>
+                </li>
+                <li class="article">
+                    <h5 class="title">{{articleList[3].title}}</h5>
+                    <div class="description">{{articleList[3].description}}</div>
+                    <div class="marker">
+                        <span class="babel">{{articleList[5].babel[1]}}</span>
+                        <span class="watch"></span>
+                    </div>
+                </li>
+                <li class="article">
+                    <h5 class="title">{{articleList[4].title}}</h5>
+                    <div class="description">{{articleList[4].description}}</div>
+                    <div class="marker">
+                        <span class="babel">{{articleList[5].babel[1]}}</span>
+                        <span class="watch"></span>
+                    </div>
+                </li>
+                <li class="article">
+                    <h5 class="title">{{articleList[5].title}}</h5>
+                    <div class="description">{{articleList[5].description}}</div>
+                    <div class="marker">
+                        <span class="babel">{{articleList[5].babel[1]}}</span>
+                        <span class="watch"></span>
+                    </div>
+                    
+                </li>
+            </ul>
             <activityMap></activityMap>
         </div>
     </div>
@@ -21,7 +64,7 @@ import {mapGetters, mapMutations} from 'vuex'
 import activityMap from '@/components/activityMap'
 export default {
     mounted() {
-        // this.getList()
+        this.getList()
     },
     computed: {
         ...mapGetters([
@@ -54,22 +97,45 @@ export default {
     @import '../common/less/variable.less';
     .overview {
         .popular {
+            // width: 900px;
+            // margin: 0 auto;
             h4 {
                 font-weight: 500;
+                padding-left: 10px;
             }
             ul {
-                // display: flex;
-                flex-direction: column;
-                width: @content-width;
+                display: flex;
+                flex-direction: row;
+                width-min: @content-width;
+                justify-content: space-around;
                 flex-wrap: wrap;
                 padding: 0;
                 li.article {
+                    box-sizing: border-box;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
                     list-style: none;
-                    width: 310px;
+                    width: 470px;
                     border: 1px solid @border-color;
                     border-radius: 3px;
-                    float: left;
-                    margin: 10px 10px;
+                    margin: 10px 0;
+                    padding: 16px;
+                    h5 {
+                        font-weight: 600;
+                        cursor: pointer;
+                        color: @title-color;
+                        // letter-spacing: 1px;
+                    }
+                    .description {
+                        font-size: 12px;
+                        color: @desc-color;
+                        margin: 10px 0;
+                    }
+                    .marker {
+                        font-size: 12px;
+                        margin-bottom: 0;
+                    }
                 }
             }
         }

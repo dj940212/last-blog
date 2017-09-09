@@ -9,6 +9,9 @@ const mutations = {
     },
     [types.SET_CURRENT_INDEX](state, index) {
         state.currentIndex = index
+    },
+    [types.SET_ARTICLE_ID](state, _id) {
+        state._id = _id
     }
 }
 
