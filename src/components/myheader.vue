@@ -16,11 +16,11 @@
                         <li class="menu-item">Explore</li>
                     </ul>
                 </div>
-                
+
             </div>
             <div class="icon-box">
-                <div class="messge"></div>
-                <span class="add" @click="toWriteArticle">+</span>
+                <div class="message"><i class="iconfont icon-xiaoxihui"></i></div>
+                <div class="add" @click="toWriteArticle">+</div>
                 <div class="avatar"></div>
             </div>
         </div>
@@ -102,15 +102,35 @@ export default {
                 color: rgba(255, 255, 255,0.75);
                 align-items: center;
                 align-self: center;
+                display: flex;
+                justify-content: space-between;
+                width: 100px;
                 .add {
-                    font-size: 24px;
+                    font-size: 28px;
                     font-weight: bold;
                     cursor: pointer;
+                    position: relative;
+                    top: -2px;
+                }
+                .avatar {
+                    height: 20px;
+                    width: 20px;
+                    background: url(https://avatars0.githubusercontent.com/u/15308542?v=4&s=40);
+                    background-size: 20px 20px;
+                    border-radius: 3px;
+                    cursor: pointer;
+                }
+                .message {
+                    position: relative;
+                    cursor: pointer;
+                    .iconfont {
+                        font-size: 16px;
+                    }
                 }
             }
-            
+
         }
-        
+
 
     }
 </style>

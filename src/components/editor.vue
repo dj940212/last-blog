@@ -8,17 +8,20 @@
                     <input ref="writeTitle" v-if="mode=='write'" type="text" placeholder="title of this article" v-model="writeTitle">
                     <input ref="updateTitle" v-if="mode=='update'" type="text" placeholder="title of this article" v-model="updateTitle">
                 </div>
-                <div class="setting">
-                    <i class="iconfont icon-shezhi" @click="publish"></i>
-                    <button><i class="iconfont icon-shezhi" @click="publish"></i>1233245</button>
-                    <button><i class="iconfont icon-liulan" @click="publish"></i>watch <span></span></button>
+                <div class="tool">
+                    <!-- <i class="iconfont icon-shezhi" @click="publish"></i> -->
+                    <div class="setting"><i class="iconfont icon-setting"></i>Settings<i class="iconfont icon-xiala"></i></div>
+                    <div class="watch"><i class="iconfont icon-liulan" @click="publish"></i>watch</div>
+                    <div class="num">1000</div>
                 </div>
                 <div class="setting-panel" v-show="false">
-                    <div class="setting-item"></div>
-                    <div class="setting-item"></div>
-                    <div class="setting-item"></div>
-                    <div class="setting-item"></div>
-                    <div class="setting-item"></div>
+                    <div class="setting-item">Delete article</div>
+                    <hr>
+                    <div class="setting-item">Export HTML</div>
+                    <div class="setting-item">Export markdown</div>
+                    <hr>
+                    <div class="setting-item">Export markdown</div>
+                    <div class="setting-item">Export markdown</div>
                 </div>
             </div>
         </div>
@@ -26,7 +29,6 @@
             <div class="desContent" v-if="mode==='read'">{{article.description || "No description..."}}</div>
             <input ref="writeDesc" v-if="mode=='write'" type="text" v-model="writeDesc" placeholder="Short description of this article">
             <input ref="updateDesc" v-if="mode=='update'" type="text" v-model="updateDesc" placeholder="Short description of this article">
-            
         </div>
         <div v-show="false" class="toolbar">
             <ul>
@@ -41,14 +43,15 @@
                 <svg aria-hidden="true" class="octicon octicon-book" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M3 5h4v1H3V5zm0 3h4V7H3v1zm0 2h4V9H3v1zm11-5h-4v1h4V5zm0 2h-4v1h4V7zm0 2h-4v1h4V9zm2-6v9c0 .55-.45 1-1 1H9.5l-1 1-1-1H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h5.5l1 1 1-1H15c.55 0 1 .45 1 1zm-8 .5L7.5 3H2v9h6V3.5zm7-.5H9.5l-.5.5V12h6V3z"></path>
                 </svg>
                 <span>README.md</span>
-                <button class="publish" @click="publish">Publish</button>
+                <div class="icon edit"><i class="iconfont icon-editnew" @click="publish"></i>edit</div>
+                <div class="icon babel"><i class="iconfont icon-iconziti23" @click="publish"></i>labels</div>
             </div>
             <div class="content-inner">
                 <div id="pen" data-toggle="pen" ref="pen"></div>
             </div>
-            
+
         </div>
-        
+
     </div>
 </template>
 
@@ -78,11 +81,11 @@ export default {
         if(this.mode === 'write') {
             document.getElementById('pen').innerHTML = '在此书写...'
             this.pen.rebuild()
-            
+
         }else if (this.$route.params._id !== 'write') {
             this.setArticleMode("read")
             this.getArticle(this.$route.params._id)
-        } 
+        }
     },
     beforeUpdate() {
         if (this.mode === 'write') {
@@ -114,8 +117,9 @@ export default {
                 ]
             };
             // create editor
-            this.pen = new Pen(options);
-            this.pen.destroy();
+            this.pen  = new Pen(options);
+            this.pen.focus();
+            console.log(this.pen.markdown)
     	},
         isEdit() {
             this.pen.rebuild()
@@ -193,8 +197,8 @@ export default {
             }else {
                 console.log('信息不完整')
             }
-            
-            
+
+
         },
         async update() {
             const htmlContent = document.getElementById('pen').innerHTML
@@ -215,7 +219,7 @@ export default {
             }else{
                 console.log('信息不完整')
             }
-            
+
         },
         async deleteArt() {
             var res = await axios.post('http://localhost:3000/api/article/delete',{
@@ -286,39 +290,100 @@ export default {
                         // align-self: end;
                     }
                 }
-                .setting {
+                .tool {
                     align-self: center;
-                    cursor: pointer;
-                    .iconfont {
-                        font-size: 20px;
+                    display: flex;
+                    .setting {
+                        cursor: pointer;
+                        // width: 100px;
+                        height: 30px;
+                        background: #f0f4f6;
+                        border: 1px solid #b5b7b8;
+                        border-radius: 3px;
+                        line-height: 30px;
+                        padding: 0 10px;
+                        .icon-setting {
+                            font-size: 16px;
+                            margin-right: 5px;
+                            color: #444;
+                        }
+                        .icon-xiala {
+                            font-size: 6px;
+                            margin-left: 6px;
+                            color: #666;
+                        }
                     }
-                    
+                    .watch {
+                        cursor: pointer;
+                        margin-left: 10px;
+                        height: 30px;
+                        background: #f0f4f6;
+                        border: 1px solid #b5b7b8;
+                        border-radius: 3px;
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                        line-height: 30px;
+                        padding: 0 10px;
+                        .iconfont {
+                            font-size: 20px;
+                            margin-right: 8px;
+                            position: relative;
+                            color: #444;
+                            top: 3px;
+                        }
+                    }
+                    .num {
+                        display: block;
+                        // width: 20px;
+                        background: #f0f4f6;
+                        height: 30px;
+                        border: 1px solid #b5b7b8;
+                        border-left: 0px;
+                        border-radius: 3px;
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                        line-height: 30px;
+                        text-align: center;
+                        padding:0 5px;
+                    }
+
 
                 }
                 .setting-panel {
                     position: absolute;
-                    width: 200px;
+                    width: 180px;
                     z-index: 10;
-                    right: 0;
+                    right: 145px;
                     top: 55px;
                     background-color: #fff;
                     border-radius: 3px;
                     border:1px solid @border-color;
-                    padding: 5px;
                     .setting-item {
                         height: 30px;
-                        border-bottom: 1px solid @border-color;
+                        padding-left: 15px;
+                        cursor: pointer;
+                        line-height: 30px;
+                        &:hover {
+                            background-color: #5248d6;
+                            color: rgba(255, 255, 255, 0.9);
+                        }
+                    }
+                    hr{
+                        // border: 0;
+                        margin: 4px 0;
+                        border-bottom: 0;
+                        border-color: @border-color;
                     }
                 }
             }
-            
+
         }
         .description {
             width: @content-width;
             display: flex;
             margin: 20px auto;
             justify-content: space-between;
-            
+
             .desContent {
                 font-size: 14px;
                 color: rgba(0, 0, 0, 0.7);
@@ -376,16 +441,24 @@ export default {
                     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
                     line-height: 20px;
                 }
-                button {
+                .icon {
                     color: #24292e;
                     height: 28px;
                     border-radius: 3px;
                     position: absolute;
                     box-shadow:0;
                     background-color: #eff3f6;
-                    border: 1px solid @border-color;
-                    // align-self: end;
+                    margin-right: 30px;
+                    line-height: 28px;
                     right: 0;
+                    color: #555;
+                    cursor: pointer;
+                    .iconfont {
+                        font-size: 20px;
+                    }
+                }
+                .babel {
+                    margin-right: 93px;
                 }
             }
             .content-inner {

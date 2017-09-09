@@ -6,7 +6,7 @@
                 <p class="desc">{{article.description}}</p>
                 <div class="footer">
                     <span>script</span>
-                    <span>Updated 10 hours ago</span>
+                    <span>{{article.meta.createAt}}</span>
                 </div>
             </li>
             
