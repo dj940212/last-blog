@@ -12,18 +12,22 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
-      children: [
-        {
-          path:'overview',
-          component: Overview
-        },{
-          path: 'list',
-          name: 'list',
-          component: List
-        }
-      ]
+      name: 'overview',
+      component: Overview,
+      // children: [
+      //   {
+      //     path:'overview',
+      //     component: Overview
+      //   },{
+      //     path: 'list',
+      //     name: 'list',
+      //     component: List
+      //   }
+      // ]
+    },{
+      path: '/list',
+      name: 'list',
+      component: List,
     },{
         path: '/article/:_id',
         name: 'article',

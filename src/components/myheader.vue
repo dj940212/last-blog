@@ -10,8 +10,8 @@
                 </div>
                 <div class="header-menu">
                     <ul>
-                        <li class="menu-item">Pull requests</li>
-                        <li class="menu-item">Issues</li>
+                        <li class="menu-item"><router-link to="/">Pull requests</router-link></li>
+                        <li class="menu-item"><router-link to="/list">Issues</router-link></li>
                         <li class="menu-item">Marketplace</li>
                         <li class="menu-item">Explore</li>
                     </ul>

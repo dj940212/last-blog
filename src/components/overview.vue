@@ -50,7 +50,7 @@
                         <span class="babel">{{articleList[5].babel[1]}}</span>
                         <span class="watch"></span>
                     </div>
-                    
+
                 </li>
             </ul>
             <activityMap></activityMap>
@@ -89,13 +89,15 @@ export default {
     components: {
         activityMap
     }
-    
+
 }
 </script>
 
 <style lang="less" scoped>
     @import '../common/less/variable.less';
     .overview {
+        width: @content-width;
+        margin: 0 auto;
         .popular {
             // width: 900px;
             // margin: 0 auto;

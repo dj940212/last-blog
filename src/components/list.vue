@@ -9,7 +9,7 @@
                     <span>{{article.meta.createAt}}</span>
                 </div>
             </li>
-            
+
         </ul>
     </div>
 </template>
@@ -53,6 +53,8 @@ export default {
 <style lang="less">
     @import '../common/less/variable.less';
     .articleList {
+        width: @content-width;
+        margin: 0 auto;
         ul {
             padding-left: 0px;
             li {
