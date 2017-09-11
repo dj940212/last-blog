@@ -10,11 +10,11 @@
                 </div>
                 <div class="tool">
                     <!-- <i class="iconfont icon-shezhi" @click="publish"></i> -->
-                    <div class="setting"><i class="iconfont icon-setting"></i>Settings<i class="iconfont icon-xiala"></i></div>
+                    <div class="setting" @click="settingsValue = !settingsValue"><i class="iconfont icon-setting"></i>Settings<i class="iconfont icon-xiala"></i></div>
                     <div class="watch"><i class="iconfont icon-liulan" @click="publish"></i>watch</div>
                     <div class="num">1000</div>
                 </div>
-                <div class="setting-panel" v-show="false">
+                <div class="setting-panel" v-show="settingsValue">
                     <div class="setting-item">Delete article</div>
                     <hr>
                     <div class="setting-item">Export HTML</div>
@@ -72,6 +72,7 @@ export default {
             writeDesc: '',
             updateTitle: '',
             updateDesc:'',
+            settingsValue: false
         }
     },
     mounted() {

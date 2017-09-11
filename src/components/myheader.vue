@@ -10,8 +10,8 @@
                 </div>
                 <div class="header-menu">
                     <ul>
-                        <li class="menu-item"><router-link to="/">Pull requests</router-link></li>
-                        <li class="menu-item"><router-link to="/list">Issues</router-link></li>
+                        <li class="menu-item"><router-link to="/">Overview</router-link></li>
+                        <li class="menu-item"><router-link to="/list">All article</router-link></li>
                         <li class="menu-item">Marketplace</li>
                         <li class="menu-item">Explore</li>
                     </ul>
@@ -94,7 +94,18 @@ export default {
                             color: rgba(255, 255, 255, 0.75);
                             font-size: 14px;
                             font-weight: 600;
+                            a {
+                                &:visited {
+                                    color: #c8c9cb;
+                                }
+                                &:hover {
+                                    color: #fff;
+                                }
+                            }
                         }
+                    }
+                    .router-link-exact-active {
+                        color: #fff;
                     }
                 }
             }
@@ -111,6 +122,9 @@ export default {
                     cursor: pointer;
                     position: relative;
                     top: -2px;
+                    &:hover {
+                        color: #fff;
+                    }
                 }
                 .avatar {
                     height: 20px;
@@ -125,6 +139,9 @@ export default {
                     cursor: pointer;
                     .iconfont {
                         font-size: 16px;
+                        &:hover {
+                            color: #fff;
+                        }
                     }
                 }
             }
