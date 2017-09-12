@@ -15,10 +15,10 @@
                     <div class="num">1000</div>
                 </div>
                 <div class="setting-panel" v-show="settingsValue">
-                    <div class="setting-item">Delete article</div>
+                    <div class="setting-item"　@click="deleteArt">Delete article</div>
                     <hr>
                     <div class="setting-item">Export HTML</div>
-                    <div class="setting-item">Export markdown</div>
+                    <div class="setting-item" @click="saveAsMarkdown">Export markdown</div>
                     <hr>
                     <div class="setting-item">Export markdown</div>
                     <div class="setting-item">Export markdown</div>
@@ -43,13 +43,17 @@
                 <svg aria-hidden="true" class="octicon octicon-book" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M3 5h4v1H3V5zm0 3h4V7H3v1zm0 2h4V9H3v1zm11-5h-4v1h4V5zm0 2h-4v1h4V7zm0 2h-4v1h4V9zm2-6v9c0 .55-.45 1-1 1H9.5l-1 1-1-1H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h5.5l1 1 1-1H15c.55 0 1 .45 1 1zm-8 .5L7.5 3H2v9h6V3.5zm7-.5H9.5l-.5.5V12h6V3z"></path>
                 </svg>
                 <span>README.md</span>
-                <div class="icon edit"><i class="iconfont icon-editnew" @click="publish"></i>edit</div>
-                <div class="icon babel"><i class="iconfont icon-iconziti23" @click="publish"></i>labels</div>
+                <div class="icon-box">
+                    <i class="iconfont icon-iconziti23" @click="isEdit"></i>
+                    <i class="iconfont icon-editnew" v-if="mode==='read'" @click="isEdit"></i>
+                    <i class="iconfont icon-fabu" v-if="mode ==='update'" @click="update"></i>
+                    <i class="iconfont icon-fabu" v-if="mode==='write'" @click="publish"></i>
+                </div>
+                <!-- <div class="icon babel"><i class="iconfont icon-iconziti23" @click="publish"></i>labels</div> -->
             </div>
             <div class="content-inner">
                 <div id="pen" data-toggle="pen" ref="pen"></div>
             </div>
-
         </div>
 
     </div>
@@ -81,7 +85,7 @@ export default {
         console.log("mode:",this.mode)
         if(this.mode === 'write') {
             document.getElementById('pen').innerHTML = '在此书写...'
-            this.pen.rebuild()
+            // this.pen.rebuild()
 
         }else if (this.$route.params._id !== 'write') {
             this.setArticleMode("read")
@@ -181,6 +185,7 @@ export default {
         },
         // 发布新文章
         async publish() {
+            console.log("发布")
             const htmlContent = this.$refs.pen.innerHTML
             !this.writeDesc && this.$refs.writeDesc.focus()
             !this.writeTitle && this.$refs.writeTitle.focus()
@@ -194,14 +199,14 @@ export default {
                 })
                 console.log(res.data)
                 this.setArticleMode('read')
+                this.$router.push({ name: 'article', params: { _id: res.data.data._id}})
                 this.getArticle(res.data.data._id)
             }else {
                 console.log('信息不完整')
             }
-
-
         },
         async update() {
+            console.log("更新")
             const htmlContent = document.getElementById('pen').innerHTML
             console.log(this.updateDesc,this.updateTitle)
             !this.updateDesc && this.$refs.updateDesc.focus();
@@ -220,7 +225,6 @@ export default {
             }else{
                 console.log('信息不完整')
             }
-
         },
         async deleteArt() {
             var res = await axios.post('http://localhost:3000/api/article/delete',{
@@ -442,20 +446,28 @@ export default {
                     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
                     line-height: 20px;
                 }
-                .icon {
+                .icon-box {
                     color: #24292e;
                     height: 28px;
                     border-radius: 3px;
                     position: absolute;
                     box-shadow:0;
-                    background-color: #eff3f6;
-                    margin-right: 30px;
+                    margin-right: 10px;
                     line-height: 28px;
                     right: 0;
                     color: #555;
                     cursor: pointer;
                     .iconfont {
+                        margin-left: 8px;
+                    }
+                    .icon-iconziti23 {
                         font-size: 20px;
+                    }
+                    .icon-fabu {
+                        font-size: 15px;
+                    }
+                    .icon-editnew {
+                        font-size: 18px;
                     }
                 }
                 .babel {
