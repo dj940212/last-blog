@@ -14,16 +14,6 @@ export default new Router({
       path: '/',
       name: 'overview',
       component: Overview,
-      // children: [
-      //   {
-      //     path:'overview',
-      //     component: Overview
-      //   },{
-      //     path: 'list',
-      //     name: 'list',
-      //     component: List
-      //   }
-      // ]
     },{
       path: '/list',
       name: 'list',

@@ -85,17 +85,20 @@ export default {
         console.log("mode:",this.mode)
         if(this.mode === 'write') {
             document.getElementById('pen').innerHTML = '在此书写...'
-            // this.pen.rebuild()
+            this.pen.rebuild()
+            this.pen.focus();
 
         }else if (this.$route.params._id !== 'write') {
             this.setArticleMode("read")
             this.getArticle(this.$route.params._id)
+            this.pen.destroy();
         }
     },
     beforeUpdate() {
         if (this.mode === 'write') {
             document.getElementById('pen').innerHTML = '在此书写...'
             this.pen.rebuild()
+            this.pen.focus();
         }
     },
     computed: {
@@ -123,12 +126,12 @@ export default {
             };
             // create editor
             this.pen  = new Pen(options);
-            this.pen.focus();
-            console.log(this.pen.markdown)
+            // this.pen.focus();
+            this.pen.destroy();
     	},
         isEdit() {
             this.pen.rebuild()
-            // this.pen.focus();
+            this.pen.focus();
             this.setArticleMode('update')
         },
         tomd() {

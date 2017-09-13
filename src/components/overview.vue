@@ -2,57 +2,16 @@
     <div class="overview">
         <div class="popular">
             <p>Popular articles</p>
-            <ul >
-                <li class="article">
-                    <h5 class="title">{{articleList[0].title}}</h5>
-                    <div class="description">{{articleList[0].description}}</div>
+            <div class="article-box">
+                <li class="article" v-for="(item, index) in popularArticle">
+                    <h5 class="title" @click="toReadArticle(index)">{{item.title}}</h5>
+                    <div class="description">{{item.description}}</div>
                     <div class="marker">
-                        <span class="babel">{{articleList[5].babel[1]}}</span>
-                        <span class="watch">123</span>
+                        <span class="babel" v-for="babel in item.babel">{{babel}}</span>
+                        <!-- <span class="watch">123</span> -->
                     </div>
                 </li>
-                <li class="article">
-                    <h5 class="title">{{articleList[1].title}}</h5>
-                    <div class="description">{{articleList[1].description}}</div>
-                    <div class="marker">
-                        <span class="babel">{{articleList[5].babel[1]}}</span>
-                        <span class="watch"></span>
-                    </div>
-                </li>
-                <li class="article">
-                    <h5 class="title">{{articleList[2].title}}</h5>
-                    <div class="description">{{articleList[2].description}}</div>
-                    <div class="marker">
-                        <span class="babel">{{articleList[5].babel[1]}}</span>
-                        <span class="watch"></span>
-                    </div>
-                </li>
-                <li class="article">
-                    <h5 class="title">{{articleList[3].title}}</h5>
-                    <div class="description">{{articleList[3].description}}</div>
-                    <div class="marker">
-                        <span class="babel">{{articleList[5].babel[1]}}</span>
-                        <span class="watch"></span>
-                    </div>
-                </li>
-                <li class="article">
-                    <h5 class="title">{{articleList[4].title}}</h5>
-                    <div class="description">{{articleList[4].description}}</div>
-                    <div class="marker">
-                        <span class="babel">{{articleList[5].babel[1]}}</span>
-                        <span class="watch"></span>
-                    </div>
-                </li>
-                <li class="article">
-                    <h5 class="title">{{articleList[5].title}}</h5>
-                    <div class="description">{{articleList[5].description}}</div>
-                    <div class="marker">
-                        <span class="babel">{{articleList[5].babel[1]}}</span>
-                        <span class="watch"></span>
-                    </div>
-
-                </li>
-            </ul>
+            </div>
             <activityMap></activityMap>
         </div>
     </div>
@@ -66,6 +25,14 @@ export default {
     mounted() {
         this.getList()
     },
+    created() {
+
+    },
+    data() {
+        return {
+            popularArticle: []
+        }
+    },
     computed: {
         ...mapGetters([
             'articleList',
@@ -77,13 +44,23 @@ export default {
         ...mapMutations({
             setArticleList: 'SET_ARTICLE_LIST',
             setArticleMode: 'SET_ARTICLE_MODE',
-            setCurrentIndex: 'SET_CURRENT_INDEX'
+            setCurrentIndex: 'SET_CURRENT_INDEX',
+            setArticleId: 'SET_ARTICLE_ID'
         }),
         async getList() {
-            const res = await axios.get('http://localhost:3000/api/article/list')
-            this.articleList = res.data.data
-            this.setArticleList(res.data.data)
-            console.log(this.articleList)
+            const res = await axios.get('http://localhost:3000/api/article/list',{
+                params:{count: 6}
+            })
+            this.popularArticle = res.data.data
+            // this.setArticleList(res.data.data)
+            // console.log(this.articleList)
+        },
+        toReadArticle(index) {
+            this.setArticleMode('read')
+            console.log(index,this.popularArticle[index]._id)
+            // this.setCurrentIndex(index)
+            this.setArticleId(this.popularArticle[index]._id)
+            this.$router.push({ name: 'article', params: { _id: this.popularArticle[index]._id}})
         },
     },
     components: {
@@ -105,7 +82,7 @@ export default {
                 font-weight: 500;
                 padding-left: 10px;
             }
-            ul {
+            .article-box {
                 display: flex;
                 flex-direction: row;
                 width-min: @content-width;
