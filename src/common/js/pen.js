@@ -853,6 +853,7 @@
     return html.replace(/\*{5}/g, '**');
   };
 
+
   // make it accessible
   if (doc.getSelection) {
     selection = doc.getSelection();

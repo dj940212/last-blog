@@ -125,9 +125,11 @@ export default {
                 ]
             };
             // create editor
-            this.pen  = new Pen(options);
-            // this.pen.focus();
-            this.pen.destroy();
+            this.pen= window.pen  = new Pen(options);
+            this.pen.focus();
+            // this.pen.destroy();
+
+            console.log(this.pen.markdown)
     	},
         isEdit() {
             this.pen.rebuild()
@@ -489,7 +491,6 @@ export default {
     small{
         color:#999;
     }
-    pre{white-space:pre-wrap;}
 
     #toolbar{margin-bottom:1em;position:fixed;left:20px;margin-top:5px;}
     #toolbar [class^="icon-"]:before, #toolbar [class*=" icon-"]:before{font-family:'pen'}
