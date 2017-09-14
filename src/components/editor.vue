@@ -80,18 +80,18 @@ export default {
         }
     },
     mounted() {
-    	this.init()
         console.log("params",this.$route.params)
         console.log("mode:",this.mode)
         if(this.mode === 'write') {
-            document.getElementById('pen').innerHTML = '在此书写...'
+            this.init()
+            this.$refs.pen.innerHTML = '在此书写...'
             this.pen.rebuild()
             this.pen.focus();
 
         }else if (this.$route.params._id !== 'write') {
             this.setArticleMode("read")
             this.getArticle(this.$route.params._id)
-            this.pen.destroy();
+            // this.pen.destroy();
         }
     },
     beforeUpdate() {
@@ -117,21 +117,20 @@ export default {
     	init() {
             const options = {
                 // toolbar: document.getElementById('custom-toolbar'),
-                editor: document.querySelector('[data-toggle="pen"]'),
+                editor: this.$refs.pen,
                 debug: true,
                 list: [
-                  'insertimage', 'blockquote', 'h2', 'h3', 'p', 'code', 'insertorderedlist', 'insertunorderedlist', 'inserthorizontalrule',
-                  'indent', 'outdent', 'bold', 'italic', 'underline', 'createlink'
+                  'insertimage', 'blockquote', 'h2', 'h3', 'p', 'code', 'insertorderedlist', 'insertunorderedlist', 'inserthorizontalrule','indent', 'outdent', 'bold', 'italic', 'underline', 'createlink'
                 ]
             };
             // create editor
             this.pen= window.pen  = new Pen(options);
-            this.pen.focus();
+            // this.pen.focus();
             // this.pen.destroy();
-
             console.log(this.pen.markdown)
     	},
         isEdit() {
+            this.init()
             this.pen.rebuild()
             this.pen.focus();
             this.setArticleMode('update')
