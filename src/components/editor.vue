@@ -20,8 +20,8 @@
                     <div class="setting-item">Export HTML</div>
                     <div class="setting-item" @click="saveAsMarkdown">Export markdown</div>
                     <hr>
-                    <div class="setting-item">Export markdown</div>
-                    <div class="setting-item">Export markdown</div>
+                    <div class="setting-item"><input type="file">Import markdown</div>
+                    <div class="setting-item">Import HTML</div>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
 <script>
 import marked from 'marked'
 import codemirror from 'codemirror'
-import highlight from 'highlight'
+import hljs from 'highlight'
 import axios from 'axios'
 import {mapGetters, mapMutations} from 'vuex'
 import '@/common/js/pen.js'
@@ -119,6 +119,8 @@ export default {
             this.pen= window.pen  = new Pen(options);
             // this.pen.destroy();
             console.log(this.pen.markdown)
+
+             
     	},
         isEdit() {
             this.init()
@@ -178,9 +180,19 @@ export default {
                 console.info(reader.result);
             }
         },
+        codeHighlight() {
+            var codes = document.getElementsByTagName('pre')
+            if (codes) {
+                for (var i = 0; i < codes.length; i++) {
+                    hljs.highlightBlock(codes[i]);
+                }
+            }
+        },
         // 发布新文章
         async publish() {
             console.log("发布")
+            this.pen.destroy()
+            this.codeHighlight()
             const htmlContent = this.$refs.pen.innerHTML
             !this.writeDesc && this.$refs.writeDesc.focus()
             !this.writeTitle && this.$refs.writeTitle.focus()
@@ -202,6 +214,8 @@ export default {
         },
         async update() {
             console.log("更新")
+            this.pen.destroy()
+            this.codeHighlight()
             const htmlContent = document.getElementById('pen').innerHTML
             console.log(this.updateDesc,this.updateTitle)
             !this.updateDesc && this.$refs.updateDesc.focus();
@@ -296,11 +310,11 @@ export default {
                     .setting {
                         cursor: pointer;
                         // width: 100px;
-                        height: 30px;
+                        height: 28px;
                         background: #f0f4f6;
-                        border: 1px solid #b5b7b8;
+                        border: 1px solid rgba(27,31,35,0.2);
                         border-radius: 3px;
-                        line-height: 30px;
+                        line-height: 28px;
                         padding: 0 10px;
                         .icon-setting {
                             font-size: 16px;
@@ -316,9 +330,9 @@ export default {
                     .watch {
                         cursor: pointer;
                         margin-left: 10px;
-                        height: 30px;
-                        background: #f0f4f6;
-                        border: 1px solid #b5b7b8;
+                        height: 28px;
+                        background: #eff3f6;
+                        border: 1px solid rgba(27,31,35,0.2);
                         border-radius: 3px;
                         border-top-right-radius: 0;
                         border-bottom-right-radius: 0;
@@ -335,14 +349,14 @@ export default {
                     .num {
                         display: block;
                         // width: 20px;
-                        background: #f0f4f6;
-                        height: 30px;
+                        background: #fff;
+                        height: 28px;
                         border: 1px solid #b5b7b8;
                         border-left: 0px;
                         border-radius: 3px;
                         border-top-left-radius: 0;
                         border-bottom-left-radius: 0;
-                        line-height: 30px;
+                        line-height: 28px;
                         text-align: center;
                         padding:0 5px;
                     }

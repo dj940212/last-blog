@@ -132,6 +132,7 @@
   }
 
   function commandBlock(ctx, name) {
+    console.log('commandBlock')
     var list = effectNode(ctx, getNode(ctx), true);
     if (list.indexOf(name) !== -1) name = 'p';
     return commandOverall(ctx, 'formatblock', name);
@@ -602,7 +603,7 @@
     return this;
   };
 
-// 编译markdown语法
+// 执行markdown命令
   Pen.prototype.execCommand = function(name, value) {
     name = name.toLowerCase();
     this.setRange();
