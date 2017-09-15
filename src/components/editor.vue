@@ -41,7 +41,6 @@
                     <i class="iconfont icon-fabu" v-if="mode ==='update'" @click="update"></i>
                     <i class="iconfont icon-fabu" v-if="mode==='write'" @click="publish"></i>
                 </div>
-                <!-- <div class="icon babel"><i class="iconfont icon-iconziti23" @click="publish"></i>labels</div> -->
             </div>
             <div class="content-inner">
                 <div id="pen" data-toggle="pen" ref="pen"></div>
