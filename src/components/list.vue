@@ -5,8 +5,8 @@
                 <h5 @click="toReadArticle(index)">{{article.title}}</h5>
                 <p class="desc">{{article.description}}</p>
                 <div class="footer">
-                    <span>script</span>
-                    <span>{{article.meta.createAt}}</span>
+                    <Babel v-for="babel in article.babel" :title="babel" :color="getColor"></Babel>
+                    <span class="createTime">{{article.meta.createAt}}</span>
                 </div>
             </li>
 
@@ -15,6 +15,7 @@
 </template>
 <script>
 import axios from 'axios'
+import Babel from '@/common/vue/babel'
 import {mapMutations} from 'vuex'
 export default {
     mounted(){
@@ -22,7 +23,17 @@ export default {
     },
     data() {
         return {
-            articleList: []
+            articleList: [],
+            babelColor: ["#e99695","#f9d0c4","#fef2c0","#c2e0c6","#bfdadc","#c5def5","#bfd4f2","#d4c5f9"]
+        }
+    },
+    components: {
+        Babel
+    },
+    computed: {
+        getColor() {
+            let index = Math.round(Math.random()*7)
+            return this.babelColor[index]
         }
     },
     methods: {
@@ -70,10 +81,15 @@ export default {
                 .desc {
                     font-size: 13px;
                     color: @desc-color;
+                    margin: 20px 0;
                 }
                 .footer {
                     font-size: 12px;
-                    color: @desc-color;
+                    color: #222;
+                    .createTime{
+                        margin-left: 10px;
+                        font-size: 14px;
+                    }
                 }
             }
         }

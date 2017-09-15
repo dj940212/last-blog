@@ -20,7 +20,7 @@
                     <div class="setting-item">Export HTML</div>
                     <div class="setting-item" @click="saveAsMarkdown">Export markdown</div>
                     <hr>
-                    <div class="setting-item">Import markdown</div>
+                    <div class="setting-item"><input type="file" @change="importMd" ref="filer">Import markdown</div>
                     <div class="setting-item">Import HTML</div>
                 </div>
             </div>
@@ -36,16 +36,10 @@
                 </svg>
                 <span>README.md</span>
                 <div class="icon-box">
-                    <!-- <i class="iconfont icon-iconziti23" @click="isEdit"></i> -->
-                    
+                    <i class="iconfont icon-iconziti23" @click="isEdit"></i>
                     <i class="iconfont icon-editnew" v-if="mode==='read'" @click="isEdit"></i>
                     <i class="iconfont icon-fabu" v-if="mode ==='update'" @click="update"></i>
                     <i class="iconfont icon-fabu" v-if="mode==='write'" @click="publish"></i>
-                    <div class="upload" v-show="mode!=='read'">
-                        <i class="iconfont icon-ic_daoru"></i>
-                        <input type="file" @change="importMd" ref="filer">
-                    </div>
-
                 </div>
             </div>
             <div class="content-inner">
@@ -61,7 +55,6 @@ import codemirror from 'codemirror'
 import hljs from 'highlight'
 import axios from 'axios'
 import {mapGetters, mapMutations} from 'vuex'
-import Babel from '@/common/vue/babel'
 import '@/common/js/pen.js'
 import '@/common/js/markdown.js'
 
@@ -81,8 +74,8 @@ export default {
         console.log("params",this.$route.params)
         console.log("mode:",this.mode)
         if(this.mode === 'write') {
-            this.$refs.pen.innerHTML = '在此书写...'
             this.init()
+            this.$refs.pen.innerHTML = '在此书写...'
             this.pen.rebuild()
             this.pen.focus();
 
@@ -108,9 +101,6 @@ export default {
             'currentIndex',
             '_id'
         ])
-    },
-    componets: {
-        Babel
     },
     methods: {
         ...mapMutations({
@@ -479,12 +469,6 @@ export default {
                     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
                     line-height: 20px;
                 }
-                .icon-box > .iconfont {
-                    margin-left: 8px;
-                    position: relative;
-                    top: -7px;
-                    right: 5px;
-                }
                 .icon-box {
                     color: #24292e;
                     height: 28px;
@@ -496,6 +480,9 @@ export default {
                     right: 0;
                     color: #555;
                     cursor: pointer;
+                    .iconfont {
+                        margin-left: 8px;
+                    }
                     .icon-iconziti23 {
                         font-size: 20px;
                     }
@@ -505,27 +492,6 @@ export default {
                     .icon-editnew {
                         font-size: 18px;
                     }
-                    .upload{
-                            display: inline-block;
-                            position: relative;
-                            cursor: pointer;
-                            width: 25px;
-                            height: 25px;
-                            left: 5px;
-                            cursor: pointer;
-                            input {
-                                width: 25px;
-                                position: absolute;
-                                opacity: 0;
-                                cursor: pointer;
-                            }
-                            .icon-ic_daoru{
-                                left: 0px;
-                                position: absolute;
-                                cursor: pointer;
-                            }
-                        }
-                    
                 }
                 .babel {
                     margin-right: 93px;
