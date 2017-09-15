@@ -11,7 +11,7 @@
                 <div class="tool">
                     <!-- <i class="iconfont icon-shezhi" @click="publish"></i> -->
                     <div class="setting" @click="settingsValue = !settingsValue"><i class="iconfont icon-setting"></i>Settings<i class="iconfont icon-xiala"></i></div>
-                    <div class="watch"><i class="iconfont icon-liulan" @click="publish"></i>watch</div>
+                    <div class="watch"><i class="iconfont icon-liulan" @click="publish"></i>Watch</div>
                     <div class="num">1000</div>
                 </div>
                 <div class="setting-panel" v-show="settingsValue">
@@ -30,14 +30,6 @@
             <input ref="writeDesc" v-if="mode=='write'" type="text" v-model="writeDesc" placeholder="Short description of this article">
             <input ref="updateDesc" v-if="mode=='update'" type="text" v-model="updateDesc" placeholder="Short description of this article">
         </div>
-        <div v-show="false" class="toolbar">
-            <ul>
-                <li @click="update"> update </li>
-                <li @click="isEdit"> Edit </li>
-                <li @click="deleteArt"> Delete </li>
-                <li @click="hinted"> contributor</li>
-            </ul>
-        </div>
         <div class="content">
             <div class="header">
                 <svg aria-hidden="true" class="octicon octicon-book" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M3 5h4v1H3V5zm0 3h4V7H3v1zm0 2h4V9H3v1zm11-5h-4v1h4V5zm0 2h-4v1h4V7zm0 2h-4v1h4V9zm2-6v9c0 .55-.45 1-1 1H9.5l-1 1-1-1H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h5.5l1 1 1-1H15c.55 0 1 .45 1 1zm-8 .5L7.5 3H2v9h6V3.5zm7-.5H9.5l-.5.5V12h6V3z"></path>
@@ -55,7 +47,6 @@
                 <div id="pen" data-toggle="pen" ref="pen"></div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -91,14 +82,16 @@ export default {
         }else if (this.$route.params._id !== 'write') {
             this.setArticleMode("read")
             this.getArticle(this.$route.params._id)
-            // this.pen.destroy();
+            this.init()
+            this.pen.destroy();
         }
     },
     beforeUpdate() {
         if (this.mode === 'write') {
             document.getElementById('pen').innerHTML = '在此书写...'
+            this.init()
             this.pen.rebuild()
-            this.pen.focus();
+            // this.pen.focus();
         }
     },
     computed: {
@@ -125,7 +118,6 @@ export default {
             };
             // create editor
             this.pen= window.pen  = new Pen(options);
-            // this.pen.focus();
             // this.pen.destroy();
             console.log(this.pen.markdown)
     	},
@@ -331,7 +323,7 @@ export default {
                         border-radius: 3px;
                         border-top-right-radius: 0;
                         border-bottom-right-radius: 0;
-                        line-height: 30px;
+                        line-height: 26px;
                         padding: 0 10px;
                         .iconfont {
                             font-size: 20px;
