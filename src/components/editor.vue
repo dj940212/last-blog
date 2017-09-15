@@ -20,7 +20,7 @@
                     <div class="setting-item">Export HTML</div>
                     <div class="setting-item" @click="saveAsMarkdown">Export markdown</div>
                     <hr>
-                    <div class="setting-item"><input type="file">Import markdown</div>
+                    <div class="setting-item"><input type="file" @change="importMd" ref="filer">Import markdown</div>
                     <div class="setting-item">Import HTML</div>
                 </div>
             </div>
@@ -70,6 +70,7 @@ export default {
         }
     },
     mounted() {
+        console.log(marked("### 中国"))
         console.log("params",this.$route.params)
         console.log("mode:",this.mode)
         if(this.mode === 'write') {
@@ -119,8 +120,6 @@ export default {
             this.pen= window.pen  = new Pen(options);
             // this.pen.destroy();
             console.log(this.pen.markdown)
-
-             
     	},
         isEdit() {
             this.init()
@@ -186,6 +185,20 @@ export default {
                 for (var i = 0; i < codes.length; i++) {
                     hljs.highlightBlock(codes[i]);
                 }
+            }
+        },
+        importMd(e) {
+            console.log(e)
+            let fileDOM = this.$refs.filer
+            let files = fileDOM.files
+            if (files.length) {
+                var file = files[0];
+                var reader = new FileReader();//new一个FileReader实例
+                reader.onload = function() {
+                    // $('body').append('<pre>' + this.result + '</pre>');
+                    document.getElementById('pen').innerHTML = marked(this.result)
+                }
+                reader.readAsText(file);
             }
         },
         // 发布新文章
