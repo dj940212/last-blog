@@ -1,8 +1,7 @@
 <template>
 	<div class="map">
-		<div class="des">513 contributions in the last year</div>
-
-		<div class="map-inner">
+		<div class="title">{{this.activityNum}} contributions in the last year</div>
+		<div class="map-inner clearfix">
 			<div class="block-box">
 				<div class="week">
 					<div class="wday">Tue</div>
@@ -12,21 +11,33 @@
 				</div>
 				<div class="block">
 					<div class="item" ref="item" v-for="i in dayNum" @click="calDate(i)">
-						<div class="month" v-if="calTime(i).getDay() === 1 && calTime(i).getDate() >=12 && calTime(i).getDate() <= 18">{{calTime(i).getMonth()+1}}</div>
+						<div class="month" v-if="calTime(i).getDay() === 1 && calTime(i).getDate() >=12 && calTime(i).getDate() <= 18">{{calMonth(i)}}</div>
 					</div>
+					
 				</div>
 			</div>
-			
+			<div class="legend">
+				<div class="less">Less</div>
+				<div class="item-box">
+					<div class="item"></div>
+					<div class="item"></div>
+					<div class="item"></div>
+					<div class="item"></div>
+				</div>
+				<div class="more">More</div>
+			</div>
+			<div class="allLog"><a href="">show all contributions</a></div>
 		</div>
 	</div>
 </template>
 <script>
 import axios from 'axios'
-import {formatTime} from '@/common/js/utils'
+import {formatTime, monthStr} from '@/common/js/utils'
 export default {
 	name: 'activityMap',
 	mounted() {
 		this.getActivity()
+		console.log(this.calMonth(1))
 	},
 	created() {
 		this.calDayNum()
@@ -35,7 +46,8 @@ export default {
 	data() {
 		return {
 			dayNum: 364,
-			activity:[{date:'2017-9-13'}],
+			activity:[],
+			activityNum: 0
 		}
 	},
 	methods: {
@@ -49,13 +61,18 @@ export default {
 			}})
 			console.log(res.data.data)
 			this.activity =res.data.data
+			this.activity.forEach((item, index)=>{
+				console.log(item)
+				this.activityNum += item.log.length
+			})
+
 			this.colorful(this.activity)
 		},
 		calDate(index) {
 			let indexTime = new Date().getTime() - (this.dayNum - index)*24*60*60*1000
 			let indexDate = new Date(indexTime)
 			let dateStr = formatTime(indexDate)
-			console.log(dateStr)
+			// console.log(dateStr)
 			
 			return dateStr
 		},
@@ -64,6 +81,10 @@ export default {
 			let indexDate = new Date(indexTime)
 
 			return indexDate
+		},
+		calMonth(index) {
+			const monthNum = this.calTime(index).getMonth() + 1
+			return monthStr(monthNum)
 		},
 		colorful(data) {
 			for (let i = 0; i < this.$refs.item.length; i++) {
@@ -87,23 +108,32 @@ export default {
 			}
 		}
 	},
+	computed: {
+	}
 }
 </script>
 <style lang="less">
 	@import '../common/less/variable.less';
 	.map {
 		margin-bottom: 30px;
+		margin-top: 20px;
+
+		.title {
+
+		}
 		.map-inner {
 			width: @content-width;
-			height: 170px;
+			// height: 170px;
 			border: 1px solid @border-color;
 			border-radius: 3px;
 			margin: 0 auto;
 			margin-top: 10px;
 			.block-box {
 				margin-top: 25px;
-				// margin: 0 auto;
-				width: 1010px;
+				margin: 0 auto;
+				margin-top: 40px;
+				margin-bottom: 10px;
+				width: 925px;
 				display: flex;
 				.week {
 					display: flex;
@@ -121,7 +151,7 @@ export default {
 					height: 119px;
 					width: 901px;
 					// margin: 0 auto;
-					margin-left: 5px;
+					margin-left: 10px;
 					flex-wrap: wrap;
 					.item {
 						height: 17px;
@@ -133,12 +163,60 @@ export default {
 						cursor: pointer;
 						.month {
 							position: relative;
-							top: -19px;
+							top: -25px;
+							height: 14px;
+							line-height: 14px;
+							font-size: 10px;
+							color: #767676;
 						}
 					}
-					.active {
-						background-color: green;
+
+
+				}
+			}
+			.legend {
+				display: flex;
+				// position: absolute;
+				float: right;
+				margin-right: 30px;
+				margin-bottom: 20px;
+				.less,.more {
+					height: 15px;
+					line-height: 12px;
+					font-size: 12px;
+					color: #767676;
+				}
+				.item-box {
+					display: flex;
+					margin: 0 10px;
+					.item {
+						width: 15px;
+						height: 15px;
+						flex-direction: row;
+						background: green;
+						margin: 0 2px;
 					}
+					.item:nth-child(1) {
+						background: #c6e48b;
+					}
+					.item:nth-child(2) {
+						background: #7bc96f;
+					}
+					.item:nth-child(3) {
+						background: #239a3b;
+					}
+					.item:nth-child(4) {
+						background: #196127;
+					}
+				}
+			}
+			.allLog {
+				font-size: 14px;
+				line-height: 12px;
+				margin-left: 70px;
+				a {
+					text-decoration:none;
+					color: #0366d6;
 				}
 			}
 		}

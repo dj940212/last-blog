@@ -77,7 +77,7 @@ export default {
         margin: 0 auto;
         .popular {
             .name{
-                font-size: 18px;
+                font-size: 16px;
                 padding-top: 20px;
                 margin: 0;
             }
