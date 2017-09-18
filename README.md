@@ -1,10 +1,13 @@
-# vue-blog
+# GitHub Blog
 
-> A Vue.js project
+> 一个仿GitHub风格的个人博客,可在线编辑,支持Markdown语法
 
-## Build Setup
+## 启动项目
 
 ``` bash
+# clone
+git clone git@github.com:dj940212/vue-blog.git
+
 # install dependencies
 npm install
 
@@ -18,4 +21,10 @@ npm run build
 npm run build --report
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+## 功能预览
+
+![mark](http://image.dingjian.name/blog/170918/8m74CH1ELd.gif)
+
+![mark](http://image.dingjian.name/blog/170918/9CcDgKHlIi.gif)

@@ -20,7 +20,7 @@ export default {
       })
       this.popularArticle = res.data.data
       // this.setArticleList(res.data.data)
-  },
+    },
   }
 }
 </script>
