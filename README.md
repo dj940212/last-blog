@@ -25,6 +25,6 @@ npm run build --report
 
 ## 功能预览
 
-![mark](http://image.dingjian.name/blog/170918/8m74CH1ELd.gif)
+![](http://image.dingjian.name/blog/170918/8m74CH1ELd.gif)
 
-![mark](http://image.dingjian.name/blog/170918/9CcDgKHlIi.gif)
+![](http://image.dingjian.name/blog/170918/9CcDgKHlIi.gif)
