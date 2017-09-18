@@ -4,8 +4,16 @@
 
 		<div class="map-inner">
 			<div class="block-box">
+				<div class="week">
+					<div class="wday">Tue</div>
+					<div class="wday">Thu</div>
+					<div class="wday">Sat</div>
+					<!-- <div class="wday">sun</div> -->
+				</div>
 				<div class="block">
-					<div class="item" ref="item" v-for="i in dayNum" @click="calDate(i)"></div>
+					<div class="item" ref="item" v-for="i in dayNum" @click="calDate(i)">
+						<div class="month" v-if="calTime(i).getDay() === 1 && calTime(i).getDate() >=12 && calTime(i).getDate() <= 18">{{calTime(i).getMonth()+1}}</div>
+					</div>
 				</div>
 			</div>
 			
@@ -47,8 +55,15 @@ export default {
 			let indexTime = new Date().getTime() - (this.dayNum - index)*24*60*60*1000
 			let indexDate = new Date(indexTime)
 			let dateStr = formatTime(indexDate)
+			console.log(dateStr)
 			
 			return dateStr
+		},
+		calTime(index) {
+			let indexTime = new Date().getTime() - (this.dayNum - index)*24*60*60*1000
+			let indexDate = new Date(indexTime)
+
+			return indexDate
 		},
 		colorful(data) {
 			for (let i = 0; i < this.$refs.item.length; i++) {
@@ -85,16 +100,28 @@ export default {
 			border-radius: 3px;
 			margin: 0 auto;
 			margin-top: 10px;
-			
 			.block-box {
-				// display: flex;
 				margin-top: 25px;
+				// margin: 0 auto;
+				width: 1010px;
+				display: flex;
+				.week {
+					display: flex;
+					flex-direction: column;
+					.wday {
+						font-size: 9px;
+						color: #767676;
+						line-height: 17px;
+						margin-top: 17px;
+					}
+				}
 				.block {
 					display: flex;
 					flex-direction: column;
 					height: 119px;
 					width: 901px;
-					margin: 0 auto;
+					// margin: 0 auto;
+					margin-left: 5px;
 					flex-wrap: wrap;
 					.item {
 						height: 17px;
@@ -104,6 +131,10 @@ export default {
 						border-right: 2px solid #fff;
 						border-bottom: 2px solid #fff;
 						cursor: pointer;
+						.month {
+							position: relative;
+							top: -19px;
+						}
 					}
 					.active {
 						background-color: green;

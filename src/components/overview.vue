@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="overview">
         <div class="popular">
-            <p>Popular articles</p>
+            <p class="name">Popular articles</p>
             <div class="article-box">
                 <li class="article" v-for="(item, index) in popularArticle">
                     <h5 class="title" @click="toReadArticle(index)">{{item.title}}</h5>
@@ -76,17 +76,16 @@ export default {
         width: @content-width;
         margin: 0 auto;
         .popular {
-            // width: 900px;
-            // margin: 0 auto;
-            h4 {
-                font-weight: 500;
-                padding-left: 10px;
+            .name{
+                font-size: 18px;
+                padding-top: 20px;
+                margin: 0;
             }
             .article-box {
                 display: flex;
                 flex-direction: row;
-                width-min: @content-width;
-                justify-content: space-around;
+                width: @content-width;
+                justify-content: space-between;
                 flex-wrap: wrap;
                 padding: 0;
                 li.article {
@@ -95,7 +94,7 @@ export default {
                     flex-direction: column;
                     justify-content: space-between;
                     list-style: none;
-                    width: 470px;
+                    width: 480px;
                     border: 1px solid @border-color;
                     border-radius: 3px;
                     margin: 10px 0;

@@ -11,7 +11,7 @@
                 <div class="header-menu">
                     <ul>
                         <li class="menu-item"><router-link to="/">Overview</router-link></li>
-                        <li class="menu-item"><router-link to="/list">All article</router-link></li>
+                        <li class="menu-item"><router-link to="/list">All Articles</router-link></li>
                         <li class="menu-item">Marketplace</li>
                         <li class="menu-item">Explore</li>
                     </ul>
@@ -54,7 +54,7 @@ export default {
             display: flex;
             justify-content: space-between;
             .box {
-                padding: 11px 0;
+                padding: 9px 0;
                 max-width: @content-width;
                 display: flex;
                 align-items: center;
