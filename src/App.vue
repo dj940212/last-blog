@@ -9,7 +9,19 @@
 import myheader from './components/myheader'
 export default {
   name: 'app',
-  components: {myheader}
+  components: {myheader},
+  mounted() {
+
+  },
+  methods: {
+    async getList() {
+      const res = await axios.get('http://localhost:3000/api/article/list',{
+          params:{count: 6}
+      })
+      this.popularArticle = res.data.data
+      // this.setArticleList(res.data.data)
+  },
+  }
 }
 </script>
 
@@ -18,7 +30,5 @@ export default {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /*text-align: center;*/
-  color: #2c3e50;
 }
 </style>

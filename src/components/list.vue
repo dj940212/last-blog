@@ -1,6 +1,6 @@
 <template>
-    <div class="articleList">
-        <ul>
+    <div class="articleList" ref="articleList" @scroll="scrollHandle">
+        <ul class="articleUl">
             <li v-for="(article, index) in articleList">
                 <h5 @click="toReadArticle(index)">{{article.title}}</h5>
                 <p class="desc">{{article.description}}</p>
@@ -9,8 +9,8 @@
                     <span class="createTime">{{article.meta.createAt}}</span>
                 </div>
             </li>
-
         </ul>
+        <div class="loading">Loading...</div>
     </div>
 </template>
 <script>
@@ -44,7 +44,9 @@ export default {
             setArticleId: 'SET_ARTICLE_ID'
         }),
         async getList() {
-            const res = await axios.get('http://localhost:3000/api/article/list')
+            const res = await axios.get('http://localhost:3000/api/article/list',{params: {
+                count: 15
+            }})
             this.articleList = res.data.data
             this.setArticleList(res.data.data)
             console.log(this.articleList)
@@ -56,7 +58,9 @@ export default {
             this.setArticleId(this.articleList[index]._id)
             this.$router.push({ name: 'article', params: { _id: this.articleList[index]._id}})
         },
-
+        scrollHandle(event) {
+            console.log("scrilll",event)
+        }
     }
 }
 </script>
@@ -92,6 +96,11 @@ export default {
                     }
                 }
             }
+        }
+        .loading {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
         }
     }
 </style>
