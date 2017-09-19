@@ -18,10 +18,14 @@ export default new Router({
       path: '/list',
       name: 'list',
       component: List,
+
     },{
         path: '/article/:_id',
         name: 'article',
-        component: Editor
+        component: Editor,
+        beforeRouteUpdate: (to, from, next) => {
+          
+        }
     },{
         path: '/article/write',
         name: 'write',

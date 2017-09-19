@@ -16,14 +16,13 @@
 <script>
 import axios from 'axios'
 import Babel from '@/common/vue/babel'
-import {mapMutations} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
+import api from '@/config/api'
 export default {
     mounted(){
-        this.getList()
     },
     data() {
         return {
-            articleList: [],
             babelColor: ["#e99695","#f9d0c4","#fef2c0","#c2e0c6","#bfdadc","#c5def5","#bfd4f2","#d4c5f9"]
         }
     },
@@ -31,6 +30,9 @@ export default {
         Babel
     },
     computed: {
+        ...mapGetters([
+            'articleList',
+        ]),
         getColor() {
             let index = Math.round(Math.random()*7)
             return this.babelColor[index]
@@ -43,20 +45,13 @@ export default {
             setCurrentIndex: 'SET_CURRENT_INDEX',
             setArticleId: 'SET_ARTICLE_ID'
         }),
-        async getList() {
-            const res = await axios.get('http://localhost:3000/api/article/list',{params: {
-                count: 15
-            }})
-            this.articleList = res.data.data
-            this.setArticleList(res.data.data)
-            console.log(this.articleList)
-        },
         toReadArticle(index) {
             this.setArticleMode('read')
-            console.log(index,this.articleList[index]._id)
             this.setCurrentIndex(index)
             this.setArticleId(this.articleList[index]._id)
             this.$router.push({ name: 'article', params: { _id: this.articleList[index]._id}})
+
+            console.log(index,this.articleList[index]._id)
         },
         scrollHandle(event) {
             console.log("scrilll",event)

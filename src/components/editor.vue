@@ -64,6 +64,7 @@ import {mapGetters, mapMutations} from 'vuex'
 import Babel from '@/common/vue/babel'
 import '@/common/js/pen.js'
 import '@/common/js/markdown.js'
+import api from '@/config/api'
 
 export default {
     data() {
@@ -76,10 +77,13 @@ export default {
             settingsValue: false
         }
     },
+    created() {
+        // this.article = this.articleList[this.currentIndex]
+        console.log("created")
+    },
     mounted() {
-        console.log(marked("### 中国"))
-        console.log("params",this.$route.params)
-        console.log("mode:",this.mode)
+        console.log("mounted")
+        
         if(this.mode === 'write') {
             this.$refs.pen.innerHTML = '在此书写...'
             this.init()
@@ -88,17 +92,20 @@ export default {
 
         }else if (this.$route.params._id !== 'write') {
             this.setArticleMode("read")
-            this.getArticle(this.$route.params._id)
+            this.article = this.articleList[this.currentIndex]
+            this.$refs.pen.innerHTML = this.article.content
+
             this.init()
             this.pen.destroy();
         }
     },
     beforeUpdate() {
+        console.log("beforeUpdate")
         // if (this.mode === 'write') {
-        //     // document.getElementById('pen').innerHTML = '在此书写...'
-        //     // this.init()
+        //     this.$refs.pen.innerHTML = '在此书写...'
+        //     this.init()
         //     this.pen.rebuild()
-        //     // this.pen.focus();
+        //     this.pen.focus();
         // }
     },
     computed: {
@@ -136,6 +143,9 @@ export default {
             this.pen.rebuild()
             this.pen.focus();
             this.setArticleMode('update')
+
+            this.updateDesc = this.article.description
+            this.updateTitle = this.article.title
         },
         tomd() {
             var text = pen.toMd();
@@ -218,64 +228,82 @@ export default {
             this.pen.destroy()
             this.codeHighlight()
             const htmlContent = this.$refs.pen.innerHTML
+
             !this.writeDesc && this.$refs.writeDesc.focus()
             !this.writeTitle && this.$refs.writeTitle.focus()
             !htmlContent && this.$refs.pen.focus()
+
             if (this.writeTitle && this.writeDesc && htmlContent) {
-                const res = await axios.post('http://localhost:3000/api/article/save',{
+                const res = await axios.post(api.addArticleUrl,{
                     title: this.writeTitle,
                     content: htmlContent,
                     description: this.writeDesc,
                     babel: 'javascript,css,html'
                 })
-                console.log(res.data)
+                
+
                 this.setArticleMode('read')
+                this.article = res.data.data
                 this.$router.push({ name: 'article', params: { _id: res.data.data._id}})
-                this.getArticle(res.data.data._id)
+                
+                // 更新本地列表
+                let newArticleList = this.articleList.slice(0)
+                newArticleList.unshift(res.data.data)
+                this.setArticleList(newArticleList)
+                this.setCurrentIndex(0)
+
             }else {
                 console.log('信息不完整')
             }
         },
+        // 修改文章
         async update() {
-            console.log("更新")
             this.pen.destroy()
             this.codeHighlight()
-            const htmlContent = document.getElementById('pen').innerHTML
-            console.log(this.updateDesc,this.updateTitle)
+
+            const htmlContent = this.$refs.pen.innerHTML
             !this.updateDesc && this.$refs.updateDesc.focus();
             !this.updateTitle && this.$refs.updateTitle.focus()
             !htmlContent && this.$refs.pen.focus()
             if (this.updateDesc && this.updateTitle && htmlContent) {
-                const res = await axios.post('http://localhost:3000/api/article/update',{
+                const res = await axios.post(api.articleUpdateUrl,{
                     title: this.updateTitle,
                     description: this.updateDesc,
                     content: htmlContent,
                     _id: this.$route.params._id,
                     babel: 'javascript,css,html'
                 })
+                
+                // 绑定到变量
                 this.setArticleMode('read')
-                this.getArticle(this.$route.params._id)
+                this.article = res.data.data
+                this.$refs.pen.innerHTML = this.article.content
+
+                // 更新本地列表
+                let newArticleList = this.articleList.slice(0)
+                newArticleList.splice(this.currentIndex,1)
+                newArticleList.unshift(res.data.data)
+                this.setArticleList(newArticleList)
             }else{
                 console.log('信息不完整')
             }
         },
+        // 删除文章
         async deleteArt() {
-            var res = await axios.post('http://localhost:3000/api/article/delete',{
-                _id: this._id
-            })
-            console.log(res.data)
+            const res = await axios.post(api.articleDeleteUrl,{_id: this._id })
+
+            //更新本地数据 
+            let newArticleList = this.articleList.slice(0)
+            newArticleList.splice(this.currentIndex, 1)
+            this.setArticleList(newArticleList)
             this.$router.push({name:'list'})
         },
         async getArticle(_id) {
-            const res = await axios.get(`http://localhost:3000/api/article/read`,{
-                params: {_id:_id}
-            })
-            console.log("我是ｉｄ",this._id)
+            const res = await axios.get(api.readArticleUrl,{params: {_id:_id} })
             this.article = res.data.data
             this.updateTitle = this.article.title
             this.updateDesc = this.article.description
-            document.getElementById('pen').innerHTML = this.article.content
-            console.log(res.data)
+            this.$refs.pen.innerHTML = this.article.content
         }
     },
 }

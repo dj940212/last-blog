@@ -7,8 +7,8 @@
                     <h5 class="title" @click="toReadArticle(index)">{{item.title}}</h5>
                     <div class="description">{{item.description}}</div>
                     <div class="marker">
-                        <span class="babel" v-for="babel in item.babel">{{babel}}</span>
-                        <!-- <span class="watch">123</span> -->
+                        <!-- <span class="babel" v-for="babel in item.babel">{{babel}}</span> -->
+                        <span class="babel">{{format(item.meta.updateAt)}}</span>
                     </div>
                 </li>
             </div>
@@ -21,12 +21,11 @@
 import axios from 'axios'
 import {mapGetters, mapMutations} from 'vuex'
 import activityMap from '@/components/activityMap'
+import {formatTimeAll} from '@/common/js/utils'
+import api from '@/config/api'
 export default {
     mounted() {
-        this.getList()
-    },
-    created() {
-
+        this.popularArticle = this.articleList.slice(0,6)
     },
     data() {
         return {
@@ -47,21 +46,17 @@ export default {
             setCurrentIndex: 'SET_CURRENT_INDEX',
             setArticleId: 'SET_ARTICLE_ID'
         }),
-        async getList() {
-            const res = await axios.get('http://localhost:3000/api/article/list',{
-                params:{count: 6}
-            })
-            this.popularArticle = res.data.data
-            // this.setArticleList(res.data.data)
-            // console.log(this.articleList)
-        },
         toReadArticle(index) {
             this.setArticleMode('read')
-            console.log(index,this.popularArticle[index]._id)
-            // this.setCurrentIndex(index)
+            this.setCurrentIndex(index)
             this.setArticleId(this.popularArticle[index]._id)
             this.$router.push({ name: 'article', params: { _id: this.popularArticle[index]._id}})
+
+            console.log(index,this.popularArticle[index]._id)
         },
+        format(time) {
+            formatTimeAll(time)
+        }
     },
     components: {
         activityMap

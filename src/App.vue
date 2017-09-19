@@ -7,19 +7,24 @@
 
 <script>
 import myheader from './components/myheader'
+import api from '@/config/api'
+import {mapGetters, mapMutations} from 'vuex'
+import axios from 'axios'
 export default {
   name: 'app',
   components: {myheader},
   mounted() {
-
+    this.getList()
   },
   methods: {
+    ...mapMutations({
+      'setArticleList': 'SET_ARTICLE_LIST'
+    }),
     async getList() {
-      const res = await axios.get('http://localhost:3000/api/article/list',{
-          params:{count: 6}
-      })
-      this.popularArticle = res.data.data
-      // this.setArticleList(res.data.data)
+      const res = await axios.get(api.articleListUrl)
+      this.setArticleList(res.data.data)
+
+      console.log("文章",res.data.data)
     },
   }
 }

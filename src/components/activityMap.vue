@@ -33,6 +33,7 @@
 <script>
 import axios from 'axios'
 import {formatTime, monthStr} from '@/common/js/utils'
+import api from '@/config/api'
 export default {
 	name: 'activityMap',
 	mounted() {
@@ -56,7 +57,7 @@ export default {
 			this.dayNum = day + 364
 		},
 		async getActivity() {
-			let res = await axios.get('http://localhost:3000/api/activity/all',{params:{
+			let res = await axios.get(api.getAllActivityUrl,{params:{
 				limit: this.dayNum
 			}})
 			console.log(res.data.data)
