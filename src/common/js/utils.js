@@ -14,7 +14,7 @@ export const formatTime = (date) => {
   return [year, month, day].map(formatNumber).join('-')
 }
 
-export const formatTimeAll = function (date) {
+export const formatTimeAll = (date)=> {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
   var day = date.getDate()

@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <myheader></myheader>
-    <router-view></router-view>
+    <!-- <keep-alive> -->
+      <router-view></router-view>
+    <!-- </keep-alive> -->
+    
   </div>
 </template>
 
@@ -14,18 +17,8 @@ export default {
   name: 'app',
   components: {myheader},
   mounted() {
-    this.getList()
   },
   methods: {
-    ...mapMutations({
-      'setArticleList': 'SET_ARTICLE_LIST'
-    }),
-    async getList() {
-      const res = await axios.get(api.articleListUrl)
-      this.setArticleList(res.data.data)
-
-      console.log("文章",res.data.data)
-    },
   }
 }
 </script>

@@ -20,6 +20,9 @@ import {mapGetters, mapMutations} from 'vuex'
 import api from '@/config/api'
 export default {
     mounted(){
+        if (!this.articleList.length) {
+            this.getList()
+        }
     },
     data() {
         return {
@@ -45,6 +48,11 @@ export default {
             setCurrentIndex: 'SET_CURRENT_INDEX',
             setArticleId: 'SET_ARTICLE_ID'
         }),
+        async getList() {
+          const res = await axios.get(api.articleListUrl)
+          this.setArticleList(res.data.data)
+          console.log("文章列表",res.data.data)
+        },
         toReadArticle(index) {
             this.setArticleMode('read')
             this.setCurrentIndex(index)

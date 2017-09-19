@@ -49,7 +49,9 @@
                 </div>
             </div>
             <div class="content-inner">
-                <div id="pen" data-toggle="pen" ref="pen"></div>
+                <div id="pen" data-toggle="pen" ref="pen">
+                    <p></p>
+                </div>
             </div>
         </div>
     </div>
@@ -57,7 +59,6 @@
 
 <script>
 import marked from 'marked'
-import codemirror from 'codemirror'
 import hljs from 'highlight'
 import axios from 'axios'
 import {mapGetters, mapMutations} from 'vuex'
@@ -77,26 +78,38 @@ export default {
             settingsValue: false
         }
     },
-    created() {
-        // this.article = this.articleList[this.currentIndex]
-        console.log("created")
-    },
     mounted() {
         console.log("mounted")
-        
-        if(this.mode === 'write') {
-            this.$refs.pen.innerHTML = '在此书写...'
-            this.init()
-            this.pen.rebuild()
-            this.pen.focus();
+        console.log(this.articleList)
+        if(this.articleList.length){
+             if(this.mode === 'write') {
+                this.$refs.pen.innerHTML = '在此书写...'
+                this.init()
+                this.pen.rebuild()
+                this.pen.focus();
 
-        }else if (this.$route.params._id !== 'write') {
-            this.setArticleMode("read")
-            this.article = this.articleList[this.currentIndex]
-            this.$refs.pen.innerHTML = this.article.content
+            }else if (this.$route.params._id !== 'write') {
+                this.setArticleMode("read")
+                this.article = this.articleList[this.currentIndex]
+                this.$refs.pen.innerHTML = this.article.content
 
-            this.init()
-            this.pen.destroy();
+                this.init()
+                this.pen.destroy();
+            }
+        }else {
+            if (this.$route.params._id === 'write') {
+                this.$refs.pen.innerHTML = '在此书写...'
+                this.init()
+                this.pen.rebuild()
+                this.pen.focus();
+                this.setArticleMode('write')
+
+            }else if (this.$route.params._id !== 'write') {
+                this.setArticleMode("read")
+                this.getArticle(this.$route.params._id)
+                this.$refs.pen.innerHTML = this.article.content
+            }
+            
         }
     },
     beforeUpdate() {
@@ -122,8 +135,14 @@ export default {
     methods: {
         ...mapMutations({
             setArticleList: 'SET_ARTICLE_LIST',
-            setArticleMode: 'SET_ARTICLE_MODE'
+            setArticleMode: 'SET_ARTICLE_MODE',
+            setCurrentIndex: 'SET_CURRENT_INDEX'
         }),
+        async getList() {
+          const res = await axios.get(api.articleListUrl)
+          this.setArticleList(res.data.data)
+          console.log("文章列表",res.data.data)
+        },
     	init() {
             const options = {
                 // toolbar: document.getElementById('custom-toolbar'),
@@ -150,17 +169,6 @@ export default {
         tomd() {
             var text = pen.toMd();
             document.body.innerHTML = '<a href="javascript:location.reload()">&larr;back to editor</a><br><br><pre>' + text + '</pre>';
-        },
-        hinted() {
-            var pen = document.querySelector('.pen')
-
-            if(pen.classList.contains('hinted')) {
-              pen.classList.remove('hinted');
-              this.classList.add('disabled');
-            } else {
-              pen.classList.add('hinted');
-              this.classList.remove('disabled');
-            }
         },
         // 保存新文章
         save(code, name){
@@ -247,10 +255,12 @@ export default {
                 this.$router.push({ name: 'article', params: { _id: res.data.data._id}})
                 
                 // 更新本地列表
-                let newArticleList = this.articleList.slice(0)
-                newArticleList.unshift(res.data.data)
-                this.setArticleList(newArticleList)
-                this.setCurrentIndex(0)
+                if (this.articleList.length) {
+                    let newArticleList = this.articleList.slice(0)
+                    newArticleList.unshift(res.data.data)
+                    this.setArticleList(newArticleList)
+                    this.setCurrentIndex(0)
+                }
 
             }else {
                 console.log('信息不完整')
@@ -280,10 +290,13 @@ export default {
                 this.$refs.pen.innerHTML = this.article.content
 
                 // 更新本地列表
-                let newArticleList = this.articleList.slice(0)
-                newArticleList.splice(this.currentIndex,1)
-                newArticleList.unshift(res.data.data)
-                this.setArticleList(newArticleList)
+                if (this.articleList.length) {
+                    let newArticleList = this.articleList.slice(0)
+                    newArticleList.splice(this.currentIndex,1)
+                    newArticleList.unshift(res.data.data)
+                    this.setArticleList(newArticleList) 
+                }
+                
             }else{
                 console.log('信息不完整')
             }
@@ -291,12 +304,15 @@ export default {
         // 删除文章
         async deleteArt() {
             const res = await axios.post(api.articleDeleteUrl,{_id: this._id })
+            this.$router.push({name:'list'})
 
             //更新本地数据 
-            let newArticleList = this.articleList.slice(0)
-            newArticleList.splice(this.currentIndex, 1)
-            this.setArticleList(newArticleList)
-            this.$router.push({name:'list'})
+            if (this.articleList.length) {
+                let newArticleList = this.articleList.slice(0)
+                newArticleList.splice(this.currentIndex, 1)
+                this.setArticleList(newArticleList)
+            }
+            
         },
         async getArticle(_id) {
             const res = await axios.get(api.readArticleUrl,{params: {_id:_id} })

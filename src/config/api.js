@@ -14,14 +14,14 @@
 
 export default {
     // article
-    'addArticleUrl': 'http://blog.dingjian.name/api/article/save',
-    'articleListUrl': 'http://blog.dingjian.name/api/article/list',
-    'articleUpdateUrl': 'http://blog.dingjian.name/api/article/update',
-    'articleDeleteUrl': 'http://blog.dingjian.name/api/article/delete',
-    'readArticleUrl': 'http://blog.dingjian.name/api/article/read',
+    'addArticleUrl': 'http://59.110.164.55:8086/api/article/save',
+    'articleListUrl': 'http://59.110.164.55:8086/api/article/list',
+    'articleUpdateUrl': 'http://59.110.164.55:8086/api/article/update',
+    'articleDeleteUrl': 'http://59.110.164.55:8086/api/article/delete',
+    'readArticleUrl': 'http://59.110.164.55:8086/api/article/read',
 
     // activity
-    'getAllActivityUrl': 'http://blog.dingjian.name/api/activity/all',
-    'getOneDayActivityUrl': 'http://blog.dingjian.name/api/activity/oneDay'
+    'getAllActivityUrl': 'http://59.110.164.55:8086/api/activity/all',
+    'getOneDayActivityUrl': 'http://59.110.164.55:8086/api/activity/oneDay'
 
 }

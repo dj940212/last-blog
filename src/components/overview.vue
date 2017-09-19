@@ -8,7 +8,7 @@
                     <div class="description">{{item.description}}</div>
                     <div class="marker">
                         <!-- <span class="babel" v-for="babel in item.babel">{{babel}}</span> -->
-                        <span class="babel">{{format(item.meta.updateAt)}}</span>
+                        <span class="time">{{item.meta.updateAt}}</span>
                     </div>
                 </li>
             </div>
@@ -25,6 +25,9 @@ import {formatTimeAll} from '@/common/js/utils'
 import api from '@/config/api'
 export default {
     mounted() {
+        if (!this.articleList.length) {
+            return this.getList()
+        }
         this.popularArticle = this.articleList.slice(0,6)
     },
     data() {
@@ -54,8 +57,14 @@ export default {
 
             console.log(index,this.popularArticle[index]._id)
         },
+        async getList() {
+          const res = await axios.get(api.articleListUrl)
+          this.setArticleList(res.data.data)
+          this.popularArticle = this.articleList.slice(0,6)
+          console.log("文章列表",res.data.data)
+        },
         format(time) {
-            formatTimeAll(time)
+           return formatTimeAll(time)
         }
     },
     components: {
@@ -108,6 +117,9 @@ export default {
                     .marker {
                         font-size: 12px;
                         margin-bottom: 0;
+                        .time {
+                            color: #333;
+                        }
                     }
                 }
             }
