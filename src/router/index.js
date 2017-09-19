@@ -12,7 +12,7 @@ export default new Router({
     {
       path: '/',
       name: 'overview',
-      component: Overview,
+      component: resolve => require(['@/components/overview'], resolve),
     },{
       path: '/list',
       name: 'list',
@@ -21,10 +21,7 @@ export default new Router({
     },{
         path: '/article/:_id',
         name: 'article',
-        component: Editor,
-        beforeRouteUpdate: (to, from, next) => {
-          
-        }
+        component: Editor
     },{
         path: '/article/write',
         name: 'write',
