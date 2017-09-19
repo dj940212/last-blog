@@ -7,13 +7,13 @@ var app = express();
 var router = express.Router();
 
 router.get('/', function (req, res, next) {
-    req.url = './dist/index.html';
+    req.url = './index.html';
     next();
 });
 
 app.use(router);
 
-app.use(express.static('./dist/static'));
+app.use(express.static('./dist'));
 
 module.exports = app.listen(port, function (err) {
     if (err) {
