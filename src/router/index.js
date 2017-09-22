@@ -4,6 +4,7 @@ import Editor from '@/components/editor'
 import List from '@/components/list'
 import Overview from '@/components/overview'
 import Home from '@/components/home'
+import Login from '@/components/login'
 
 Vue.use(Router)
 
@@ -26,6 +27,12 @@ export default new Router({
         path: '/article/write',
         name: 'write',
         component: Editor
+    }, {
+      path: '/login',
+      name: 'login',
+      components:{
+        login: Login
+      } 
     }
   ]
 })

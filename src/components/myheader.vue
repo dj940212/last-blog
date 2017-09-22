@@ -21,26 +21,38 @@
             <div class="icon-box">
                 <div class="message"><i class="iconfont icon-xiaoxihui"></i></div>
                 <div class="add" @click="toWriteArticle">+</div>
-                <div class="avatar"></div>
+                <div class="avatar" v-show="isLogin"></div>
+                <div class="login" v-show="!isLogin" @click="login">Login</div>
             </div>
         </div>
 
     </header>
 </template>
 <script>
-import { mapMutations } from 'vuex'
+import {mapMutations, mapGetters} from 'vuex'
 export default {
     name: 'myheader',
     mounted() {
+        
     },
     methods: {
         ...mapMutations({
-            setArticleMode: 'SET_ARTICLE_MODE'
+            setArticleMode: 'SET_ARTICLE_MODE',
+            setIsLogin: 'SET_IS_LOGIN'
         }),
         toWriteArticle() {
             this.setArticleMode('write')
             this.$router.push({ name: 'write'})
+        },
+        login() {
+            this.$router.push('/login')
+            this.setIsLogin(true)
         }
+    },
+    computed: {
+        ...mapGetters([
+            'isLogin'
+        ])
     }
 }
 </script>
@@ -134,6 +146,12 @@ export default {
                     border-radius: 3px;
                     cursor: pointer;
                 }
+                .login {
+                    cursor: pointer;
+                    &:hover {
+                        color: #fff;
+                    }
+                }
                 .message {
                     position: relative;
                     cursor: pointer;
@@ -147,7 +165,5 @@ export default {
             }
 
         }
-
-
     }
 </style>

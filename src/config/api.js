@@ -7,8 +7,12 @@ export default {
     'readArticleUrl': 'http://localhost:8086/api/article/read',
 
     // activity
-    'getAllActivityUrl': 'http://localhost:3000/api/activity/all',
-    'getOneDayActivityUrl': 'http://localhost:3000/api/activity/oneDay'
+    'getAllActivityUrl': 'http://localhost:8086/api/activity/all',
+    'getOneDayActivityUrl': 'http://localhost:8086/api/activity/oneDay',
+
+    // user
+    'loginUrl': 'http://localhost:8086/api/user/login',
+    'register': 'http://localhost:8086/api/user/register',
 
 }
 

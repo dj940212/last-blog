@@ -12,6 +12,9 @@ const mutations = {
     },
     [types.SET_ARTICLE_ID](state, _id) {
         state._id = _id
+    },
+    [types.SET_IS_LOGIN](state, isLogin) {
+        state.isLogin = isLogin
     }
 }
 

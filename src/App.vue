@@ -1,9 +1,10 @@
 <template>
   <div id="app">
-    <myheader></myheader>
-    <!-- <keep-alive> -->
+    <router-view name="login"></router-view>
+    <div>
+      <myheader></myheader>
       <router-view></router-view>
-    <!-- </keep-alive> -->
+    </div>
     
   </div>
 </template>
@@ -28,5 +29,6 @@ export default {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 </style>
