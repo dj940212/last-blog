@@ -63,8 +63,8 @@ export default {
 			console.log(res.data.data)
 			this.activity =res.data.data
 			this.activity.forEach((item, index)=>{
-				console.log(item)
-				this.activityNum += item.log.length
+				// console.log(item)
+				this.activityNum += parseInt(item.logLen)
 			})
 
 			this.colorful(this.activity)
@@ -92,15 +92,15 @@ export default {
 				const date = this.calDate(i+1)
 				for (let j = 0; j < data.length; j++) {
 					if (data[j].date === date) {
-						const logLen = data[j].log.length
+						const logLen = data[j].logLen
 						const elem = this.$refs.item[i]
-						if (logLen >= 1 && logLen <3) {
+						if (logLen >= 1 && logLen <5) {
 							elem.style.backgroundColor = "#c6e48b"
-						}else if(logLen >= 3 && logLen < 5) {
+						}else if(logLen >= 5 && logLen < 9) {
 							elem.style.backgroundColor = "#7bc96f"
-						}else if (logLen >= 5 && logLen < 7) {
+						}else if (logLen >= 9 && logLen < 13) {
 							elem.style.backgroundColor = "#239a3b"
-						}else if (logLen >= 7) {
+						}else if (logLen >= 13) {
 							elem.style.backgroundColor = "#196127"
 						}
 						

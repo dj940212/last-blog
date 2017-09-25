@@ -81,8 +81,8 @@ export default {
     mounted() {
         console.log("mounted")
         console.log(this.articleList)
-        if(this.articleList.length){
-             if(this.mode === 'write') {
+        if(false){
+            if(this.mode === 'write') {
                 this.$refs.pen.innerHTML = '在此书写...'
                 this.init()
                 this.pen.rebuild()
@@ -97,17 +97,19 @@ export default {
                 this.pen.destroy();
             }
         }else {
-            if (this.$route.params._id === 'write') {
+            if (this.mode === 'write') {
                 this.$refs.pen.innerHTML = '在此书写...'
                 this.init()
                 this.pen.rebuild()
                 this.pen.focus();
-                this.setArticleMode('write')
+                // this.setArticleMode('write')
 
             }else if (this.$route.params._id !== 'write') {
                 this.setArticleMode("read")
                 this.getArticle(this.$route.params._id)
                 this.$refs.pen.innerHTML = this.article.content
+                this.init()
+                this.pen.destroy();
             }
             
         }
