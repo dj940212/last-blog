@@ -3,51 +3,51 @@
         <div class="header-inner">
             <div class="box">
                 <div class="logo-box">
-                    <svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+                    <i class="iconfont icon-github"></i>
                 </div>
                 <div class="search-box">
                     <input type="text" name="" value="" placeholder="Search Blog">
                 </div>
                 <div class="header-menu">
                     <ul>
-                        <li class="menu-item"><router-link to="/">Overview</router-link></li>
-                        <li class="menu-item"><router-link to="/list">All Articles</router-link></li>
-                        <li class="menu-item">Operation Log</li>
+                        <li class="menu-item" @click="toPages('/')">Overview</li>
+                        <li class="menu-item" @click="toPages('/articles')">Articles</router-link></li>
+                        <li class="menu-item" @click="toPages('/labels')">Labels</li>
                         <li class="menu-item">About</li>
                     </ul>
                 </div>
 
             </div>
             <div class="icon-box">
-                <div class="message"><i class="iconfont icon-xiaoxihui"></i></div>
-                <div class="add" @click="toWriteArticle">+</div>
+                <div class="message"><i class="iconfont icon-xiaoxi"></i></div>
+                <div class="add" @click="toPages('/new')">+</div>
                 <div class="avatar" v-show="isLogin"></div>
                 <div class="login" v-show="!isLogin" @click="login">Login</div>
             </div>
         </div>
-
     </header>
 </template>
 <script>
 import {mapMutations, mapGetters} from 'vuex'
 export default {
-    name: 'myheader',
+    name: 'vHeader',
     mounted() {
         
     },
     methods: {
         ...mapMutations({
             setArticleMode: 'SET_ARTICLE_MODE',
-            setIsLogin: 'SET_IS_LOGIN'
+            setIsLogin: 'SET_IS_LOGIN',
+            setCurRoute: 'SET_CUR_ROUTE'
         }),
-        toWriteArticle() {
-            this.setArticleMode('write')
-            this.$router.push({ name: 'write'})
-        },
         login() {
             this.$router.push('/login')
-            this.setIsLogin(true)
-        }
+            this.setCurRoute(this.$route.fullPath)
+        },
+        toPages(route) {
+            this.$router.push(route)
+        },
+
     },
     computed: {
         ...mapGetters([
@@ -72,10 +72,17 @@ export default {
                 align-items: center;
                 .logo-box{
                     margin-right: 15px;
-                    svg {
-                        // background-color: #fff;
-                        color: #fff;
-                        border-radius: 16px;
+                    border-radius: 50%;
+                    width: 32px;
+                    height: 32px;
+                    background: #fff;
+                    text-align: center;
+                    line-height: 32px;
+                    .icon-github {
+                        font-size: 30px;
+                        position: relative;
+                        top: 4px;
+                        // right: 1px;
                     }
                 }
                 .search-box {
@@ -106,13 +113,12 @@ export default {
                             color: rgba(255, 255, 255, 0.75);
                             font-size: 14px;
                             font-weight: 600;
-                            a {
-                                &:visited {
-                                    color: #c8c9cb;
-                                }
-                                &:hover {
-                                    color: #fff;
-                                }
+                            cursor: pointer;
+                            &:hover {
+                                color: #fff ;
+                            }
+                            &:visited {
+                                color: #c8c9cb;
                             }
                         }
                     }
@@ -141,7 +147,7 @@ export default {
                 .avatar {
                     height: 20px;
                     width: 20px;
-                    background: url(https://avatars0.githubusercontent.com/u/15308542?v=4&s=40);
+                    background: url(http://ovs5x36k4.bkt.clouddn.com/06.jpg);
                     background-size: 20px 20px;
                     border-radius: 3px;
                     cursor: pointer;
@@ -154,9 +160,10 @@ export default {
                 }
                 .message {
                     position: relative;
+                    top: -1px;
                     cursor: pointer;
                     .iconfont {
-                        font-size: 16px;
+                        font-size: 18px;
                         &:hover {
                             color: #fff;
                         }

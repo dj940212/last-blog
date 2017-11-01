@@ -2,7 +2,7 @@
   <div id="app">
     <router-view name="login"></router-view>
     <div>
-      <myheader></myheader>
+      <v-header></v-header>
       <router-view></router-view>
     </div>
     
@@ -10,17 +10,11 @@
 </template>
 
 <script>
-import myheader from './components/myheader'
-import api from '@/config/api'
-import {mapGetters, mapMutations} from 'vuex'
+import vHeader from '@/components/vHeader'
+import config from '@/config'
 import axios from 'axios'
 export default {
-  name: 'app',
-  components: {myheader},
-  mounted() {
-  },
-  methods: {
-  }
+  components: {vHeader},
 }
 </script>
 

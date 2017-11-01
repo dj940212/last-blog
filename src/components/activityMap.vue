@@ -1,6 +1,6 @@
 <template>
 	<div class="map">
-		<div class="title">{{this.activityNum}} contributions in the last year</div>
+		<div class="title">{{this.activityNum}} updates in the last year</div>
 		<div class="map-inner clearfix">
 			<div class="block-box">
 				<div class="week">
@@ -33,7 +33,7 @@
 <script>
 import axios from 'axios'
 import {formatTime, monthStr} from '@/common/js/utils'
-import api from '@/config/api'
+import config from '@/config'
 export default {
 	name: 'activityMap',
 	mounted() {
@@ -57,8 +57,8 @@ export default {
 			this.dayNum = day + 364
 		},
 		async getActivity() {
-			let res = await axios.get(api.getAllActivityUrl,{params:{
-				limit: this.dayNum
+			let res = await axios.get(config.api.getAllActivityUrl,{params:{
+				count: this.dayNum
 			}})
 			console.log(res.data.data)
 			this.activity =res.data.data
@@ -113,14 +113,16 @@ export default {
 	}
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 	@import '../common/less/variable.less';
 	.map {
 		margin-bottom: 30px;
 		margin-top: 20px;
 
 		.title {
-
+			font-size: 16px;
+            margin: 0;
+            color: #333;
 		}
 		.map-inner {
 			width: @content-width;
@@ -222,5 +224,4 @@ export default {
 			}
 		}
 	}
-	
 </style>

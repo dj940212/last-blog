@@ -8,11 +8,11 @@
 </template>
 <script>
     export default {
-        name: 'Babel',
         props: ['title','color']
     }
 </script>
 <style lang="less" scoped>
+    @import '../common/less/variable.less';
     .babel {
         display: inline-block;
         margin-right: 5px;
@@ -29,7 +29,8 @@
                 height: 12px;
                 line-height: 12px;
                 margin-left: 5px;
-                font-size: 16px;
+                font-size: 12px;
+                color: @text-gray;
             }
         }
     }

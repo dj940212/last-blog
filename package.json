@@ -5,7 +5,7 @@
   "author": "dj940212 <2902273280@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js & nodemon ./server/config/index.js",
+    "dev": "node build/dev-server.js & nodemon ./server/config",
     "start": "node build/dev-server.js",
     "build": "node build/build.js"
   },

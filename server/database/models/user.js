@@ -104,7 +104,7 @@ UserSchema.methods = {
 	    })
   	},
   	getToken: function() {
-	  	const token = jwt.sign({name: this.username}, config.secret,{
+	  	const token = jwt.sign({name: this.username}, 'dingjianblog',{
             expiresIn: 7200
         })
 

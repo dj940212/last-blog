@@ -58,7 +58,7 @@ export const monthStr = (num) => {
             break;
         case 9:
             return 'Oct'
-            break; 
+            break;
         case 10:
             return 'Nov'
             break;
@@ -69,3 +69,35 @@ export const monthStr = (num) => {
             return 'bug'
     }
 }
+
+// 获取十进制颜色值
+export const  colorNum = (code) => {
+    var sColor = code.toLowerCase();
+    //十六进制颜色值的正则表达式
+    var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+    // 如果是16进制颜色
+    if (sColor && reg.test(sColor)) {
+        if (sColor.length === 4) {
+            var sColorNew = "#";
+            for (var i=1; i<4; i+=1) {
+                sColorNew += sColor.slice(i, i+1).concat(sColor.slice(i, i+1));
+            }
+            sColor = sColorNew
+        }
+        sColor =  sColor.slice(1)
+        sColor = parseInt("0x"+sColor)
+    }
+    return sColor;
+};
+
+// 距离当前时间
+export const fromNow = (dateStr) => {
+      const between = Date.now() / 1000 - Number(new Date(dateStr).getTime()) / 1000;
+      if (between < 3600) {
+          return (~~(between / 60)+' minutes ago');
+      } else if (between < 86400) {
+          return (~~(between / 3600)+' hours ago');
+      } else {
+          return (~~(between / 86400)+' days ago');
+      }
+  }

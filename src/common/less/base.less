@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
 a {
@@ -15,6 +16,7 @@ button {
 }
 html, body {
   height: 100%;
+  font-size: 16px;
 }
 body {
   margin: 0;
@@ -28,4 +30,11 @@ body {
 }
 .clearfix:after{
   clear: both;
+}
+//页面过度动效
+.page-enter-active, .page-leave-active {
+  transition: opacity .3s;
+}
+.page-enter, .page-leave-active {
+  opacity: 0;
 }

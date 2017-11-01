@@ -6,9 +6,16 @@
                 <li class="article" v-for="(item, index) in popularArticle">
                     <h5 class="title" @click="toReadArticle(index)">{{item.title}}</h5>
                     <div class="description">{{item.description}}</div>
-                    <div class="marker">
-                        <!-- <span class="babel" v-for="babel in item.babel">{{babel}}</span> -->
-                        <span class="time">{{item.meta.updateAt}}</span>
+                    <div class="footer">
+                        <div class="labeldot-box" v-show="item.label.length">
+                            <label-dot
+                                v-for="label in item.label"
+                                :key="label.id"
+                                :title="label.name"
+                                :color="label.color">
+                            </label-dot>
+                        </div>
+                        <span class="updateAt">Updated {{getTimeBetween(item.meta.updateAt)}}</span>
                     </div>
                 </li>
             </div>
@@ -16,23 +23,21 @@
         </div>
     </div>
 </template>
-
 <script>
 import axios from 'axios'
 import {mapGetters, mapMutations} from 'vuex'
 import activityMap from '@/components/activityMap'
+import labelDot from '@/components/labelDot'
+import { fromNow } from '@/common/js/utils'
 import {formatTimeAll} from '@/common/js/utils'
-import api from '@/config/api'
+import config from '@/config'
 export default {
     mounted() {
-        if (!this.articleList.length) {
-            return this.getList()
-        }
-        this.popularArticle = this.articleList.slice(0,6)
+        this.getList()
     },
     data() {
         return {
-            popularArticle: []
+            popularArticle: [],
         }
     },
     computed: {
@@ -53,24 +58,24 @@ export default {
             this.setArticleMode('read')
             this.setCurrentIndex(index)
             this.setArticleId(this.popularArticle[index]._id)
-            this.$router.push({ name: 'article', params: { _id: this.popularArticle[index]._id}})
+            const _id = this.popularArticle[index]._id
+            this.$router.push({path: `/article/${_id}`})
 
-            console.log(index,this.popularArticle[index]._id)
+            console.log(index,this._id)
         },
         async getList() {
-          const res = await axios.get(api.articleListUrl)
-          this.setArticleList(res.data.data)
-          this.popularArticle = this.articleList.slice(0,6)
-          console.log("文章列表",res.data.data)
+          const res = await axios.get(config.api.articleListUrl,{params: {count: 6}})
+          this.popularArticle = res.data.data
+          console.log("热门文章",res.data.data)
         },
-        format(time) {
-           return formatTimeAll(time)
+        getTimeBetween(date) {
+           return  fromNow(date)
         }
     },
     components: {
-        activityMap
+        activityMap,
+        labelDot
     }
-
 }
 </script>
 
@@ -84,6 +89,7 @@ export default {
                 font-size: 16px;
                 padding-top: 20px;
                 margin: 0;
+                font-weight: 300;
             }
             .article-box {
                 display: flex;
@@ -107,18 +113,27 @@ export default {
                         font-weight: 600;
                         cursor: pointer;
                         color: @title-color;
-                        // letter-spacing: 1px;
+                        font-size: 16px;
                     }
                     .description {
                         font-size: 12px;
                         color: @desc-color;
-                        margin: 10px 0;
+                        margin-top: 5px;
+                        margin-bottom: 12px;
                     }
-                    .marker {
+                    .footer {
                         font-size: 12px;
-                        margin-bottom: 0;
-                        .time {
-                            color: #333;
+                        color: #222;
+                        .labeldot-box {
+                            display: inline-block;
+                            margin-right: 15px;
+                        }
+                        .updateAt{
+                            // margin-left: 10px;
+                            font-size: 12px;
+                            color: @text-gray;
+                            position: relative;
+                            top: -2px;
                         }
                     }
                 }

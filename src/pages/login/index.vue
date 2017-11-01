@@ -21,7 +21,7 @@
 </template>
 <script>
     import {mapMutations, mapGetters} from 'vuex'
-    import api from '@/config/api'
+    import config from '@/config'
     import axios from 'axios'
     export default {
         data() {
@@ -33,23 +33,28 @@
         methods: {
             ...mapMutations({
                 setIsLogin: 'SET_IS_LOGIN',
+                setToken: 'SET_TOKEN'
             }),
             async signIn() {
                 try {
-                    const res = await axios.post(api.loginUrl,{username: this.username, password: this.password,withCredentials: true})
-                    console.log(res.data.message)
-                    if (res.data.message === "success") {
-                        this.$router.push('/')
+                    const res = await axios.post(config.api.loginUrl,{username: this.username, password: this.password})
+                    console.log(res.data)
+                    if (res.data.success) {
+                        history.go(-1)
                         this.setIsLogin(true)
+                        this.setToken(res.data.data.token)
                     }
                 }catch(e) {
-                    console.log(e) 
+                    console.log(e)
                 }
-
-                // this.$router.push('/')
             },
 
         },
+        computed: {
+            ...mapGetters([
+                'curRoute'
+            ])
+        }
     }
 </script>
 <style lang="less" scoped>
@@ -71,7 +76,6 @@
                     background-color: #666;
                     margin: 0 auto;
                     border-radius: 50%;
-                    // background-image: url(https://avatars0.githubusercontent.com/u/15308542?v=4&s=40)
                 }
             }
             .title {
@@ -92,7 +96,7 @@
                     border: 1px solid #d8dee2;
                     background-color: #fff;
                     padding: 20px;
-                    border-radius: 5px; 
+                    border-radius: 5px;
                     font-size: 14px;
                     label {
                         display: block;

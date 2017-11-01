@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Editor from '@/components/editor'
-import List from '@/components/list'
-import Overview from '@/components/overview'
-import Home from '@/components/home'
-import Login from '@/components/login'
+import Add from '@/pages/add'
+import List from '@/pages/list'
+import Labels from '@/pages/labels'
+import Index from '@/pages/index'
+import Login from '@/pages/login'
+import Article from '@/pages/article'
 
 Vue.use(Router)
 
@@ -12,27 +13,22 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'overview',
-      component: resolve => require(['@/components/overview'], resolve),
+      component: resolve => require(['@/pages/index'], resolve),
     },{
-      path: '/list',
-      name: 'list',
-      component: List,
-
+      path: 'articles',
+      component: List
     },{
         path: '/article/:_id',
-        name: 'article',
-        component: Editor
+        component: Article
     },{
-        path: '/article/write',
-        name: 'write',
-        component: Editor
-    }, {
+        path: '/new',
+        component: Add
+    },{
       path: '/login',
-      name: 'login',
-      components:{
-        login: Login
-      } 
+      component: Login 
+    },{
+      path: '/labels',
+      component: Labels
     }
   ]
 })
