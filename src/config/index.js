@@ -1,23 +1,26 @@
+let baseUrl = "http://localhost:8086/"
+// let baseUrl = "http://59.110.164.55:8086/"
+
 export default {
 	api: {
         // article
-        'addArticleUrl': 'http://localhost:8086/api/article/save',
-        'articleListUrl': 'http://localhost:8086/api/article/list',
-        'articleUpdateUrl': 'http://localhost:8086/api/article/update',
-        'articleDeleteUrl': 'http://localhost:8086/api/article/delete',
-        'readArticleUrl': 'http://localhost:8086/api/article/read',
-		'addLabelUrl': 'http://localhost:8086/api/article/addLabel',
-		'delLabelUrl': 'http://localhost:8086/api/article/delLabel',
+        'addArticleUrl': baseUrl+'api/article/save',
+        'articleListUrl': baseUrl+'api/article/list',
+        'articleUpdateUrl': baseUrl+'api/article/update',
+        'articleDeleteUrl': baseUrl+'api/article/delete',
+        'readArticleUrl': baseUrl+'api/article/read',
+		'addLabelUrl': baseUrl+'api/article/addLabel',
+		'delLabelUrl': baseUrl+'api/article/delLabel',
 
         // activity
-        'getAllActivityUrl': 'http://localhost:8086/api/activity/all',
-        'getOneDayActivityUrl': 'http://localhost:8086/api/activity/oneDay',
+        'getAllActivityUrl': baseUrl+'api/activity/all',
+        'getOneDayActivityUrl': baseUrl+'api/activity/oneDay',
         // user
-        'loginUrl': 'http://localhost:8086/api/login',
+        'loginUrl': baseUrl+'api/login',
 				// label
-        'newLabelUrl': 'http://localhost:8086/api/label/new',
-        'changeLabelUrl': 'http://localhost:8086/api/label/update',
-        'getLabelsUrl': 'http://localhost:8086/api/labels',
-        'deleteLabelUrl': 'http://localhost:8086/api/label/delete'
+        'newLabelUrl': baseUrl+'api/label/new',
+        'changeLabelUrl': baseUrl+'api/label/update',
+        'getLabelsUrl': baseUrl+'api/labels',
+        'deleteLabelUrl': baseUrl+'api/label/delete'
     }
 }
