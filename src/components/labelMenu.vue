@@ -1,7 +1,7 @@
 <template>
     <div class="label-menu">
         <div class="label">
-            <v-button @click.native="$emit('getAll')" fontSize="13px" background="#eee"> All {{artLength}}</v-button>
+            <v-button @click.native="getAll" fontSize="13px" background="#eee"> All {{allArticles.length}}</v-button>
         </div>
         <div class="label" v-for="(label,index) in labels">
             <v-button
@@ -27,7 +27,8 @@ export default {
     computed: {
         ...mapGetters([
             'labels',
-            'articleList'
+            'articleList',
+            'allArticles'
         ])
     },
     methods: {
@@ -44,6 +45,9 @@ export default {
             const label = this.labels[index]
             console.log(label)
             this.setArticleList(label.article)
+        },
+        getAll() {
+            this.setArticleList(this.allArticles)
         }
     },
     components: {

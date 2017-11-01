@@ -1,7 +1,7 @@
 const state = {
-    mode: "read",
-    articleList: [],
-    allAricles: [],
+    mode: "read",           //阅读&&编辑
+    articleList: [],        //当前显示文章
+    allArticles: [],         //所有文章
     currentIndex: -1,
     _id: '',
     isLogin: false,

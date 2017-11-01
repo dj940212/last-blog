@@ -28,8 +28,8 @@ const mutations = {
     [types.SET_CUR_EDIT](state, curEdit) {
         state.curEdit = curEdit
     },
-    [types.SET_ALL_ARTICLES](state, articles) {
-        state.allAricles = article
+    [types.SET_ALL_ARTICLES](state, allArticles) {
+        state.allArticles = allArticles
     }
 }
 

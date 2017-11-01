@@ -7,4 +7,4 @@ export const token = state => state.token
 export const curRoute = state => state.curRoute
 export const labels = state => state.labels
 export const curEdit = state => state.curEdit
-export const allAricles = state => state.allAricles
+export const allArticles = state => state.allArticles

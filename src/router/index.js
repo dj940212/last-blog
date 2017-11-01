@@ -12,11 +12,11 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      component: resolve => require(['@/pages/index'], resolve),
+        path: '/',
+        component: resolve => require(['@/pages/index'], resolve),
     },{
-      path: 'articles',
-      component: List
+        path: '/articles',
+        component: List
     },{
         path: '/article/:_id',
         component: Article
@@ -24,11 +24,11 @@ export default new Router({
         path: '/new',
         component: Add
     },{
-      path: '/login',
-      component: Login 
+        path: '/login',
+        component: Login 
     },{
-      path: '/labels',
-      component: Labels
+        path: '/labels',
+        component: Labels
     }
   ]
 })

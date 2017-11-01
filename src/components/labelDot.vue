@@ -21,7 +21,7 @@
             .circle {
                 width: 12px;
                 height: 12px;
-                margin-top: 1px;
+                // margin-top: 1px;
                 // background-color: yellow;
                 border-radius: 50%;
             }

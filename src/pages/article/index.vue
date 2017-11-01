@@ -8,19 +8,24 @@
                     <input ref="updateTitle" v-if="mode=='update'" type="text" placeholder="title of this article" v-model="updateTitle">
                 </div>
                 <div class="tool">
-                    <div class="setting" @click="openLabelsCard">
-                        <i class="iconfont icon-biaoqian"></i>
+                    <div class="icon-box" @click="openLabelsCard">
+                        <i class="iconfont icon-biaoqian" v-show="!labelCardShow"></i>
+                        <i class="iconfont icon-cross" v-show="labelCardShow"></i>
                     </div>
-                    <div class="watch">
-                        <i class="iconfont icon-bianji-copy-copy" v-if="mode==='read'"  @click="isEdit"></i>
-                        <i class="iconfont icon-save_blue" v-if="mode ==='update'" @click="update"></i>
+                    <div class="icon-box" v-if="mode==='read'">
+                        <i class="iconfont icon-bianji-copy-copy"   @click="isEdit"></i>
                     </div>
-                    <div class="watch" v-if="mode ==='update'">
+                    <div class="icon-box save" v-if="mode==='update'">
+                        <i class="iconfont icon-save_blue"  @click="update"></i>
+                    </div>
+                    <div class="icon-box cancel" v-if="mode ==='update'">
                         <i class="iconfont icon-cross" @click="isNotEdit"></i>
                     </div>
-                    <div class="watch" @click="deleteArt"><i class="iconfont icon-shanchu"></i></div>
+                    <div class="icon-box" @click="deleteArt">
+                        <i class="iconfont icon-shanchu"></i>
+                    </div>
                 </div>
-                <div class="setting-panel" v-show="settingsValue">
+                <div class="label-box" v-show="labelCardShow">
                     <label-card :article="article"></label-card>
                 </div>
             </div>
@@ -63,7 +68,7 @@ export default {
             article : {},
             updateTitle: '',
             updateDesc:'',
-            settingsValue: false,
+            labelCardShow: false,
         }
     },
     mounted() {
@@ -125,7 +130,6 @@ export default {
             };
             // create editor
             this.pen= window.pen  = new Pen(options);
-            // this.pen.destroy();
             console.log(this.pen.markdown)
         },
         isEdit() {
@@ -145,7 +149,10 @@ export default {
             this.updateTitle = this.article.title
         },
         openLabelsCard() {
-            this.settingsValue = !this.settingsValue
+            if (this.labelCardShow) {
+                return this.labelCardShow = !this.labelCardShow
+            }
+            this.labelCardShow = !this.labelCardShow
             this.getLabels()
         },
         // 代码高亮
@@ -263,37 +270,14 @@ export default {
                 .tool {
                     align-self: center;
                     display: flex;
-                    .setting {
-                        cursor: pointer;
-                        // width: 100px;
-                        height: 28px;
-                        background: #f0f4f6;
-                        border: 1px solid rgba(27,31,35,0.2);
-                        border-radius: 3px;
-                        line-height: 28px;
-                        padding: 0 10px;
-                        font-size: 16px;
-                        .icon-setting {
-                            font-size: 16px;
-                            margin-right: 5px;
-                            color: #444;
-                        }
-                        .icon-xiala {
-                            font-size: 6px;
-                            margin-left: 6px;
-                            color: #666;
-                        }
-                    }
-                    .watch {
+                    .icon-box {
                         cursor: pointer;
                         display: block;
-                        margin-left: 10px;
+                        margin-left: 8px;
                         height: 28px;
                         background: #eff3f6;
                         border: 1px solid rgba(27,31,35,0.2);
                         border-radius: 3px;
-                        border-top-right-radius: 0;
-                        border-bottom-right-radius: 0;
                         line-height: 26px;
                         padding: 0 10px;
                         font-size: 16px;
@@ -304,28 +288,27 @@ export default {
                             top: 2px;
                         }
                     }
-                    .num {
-                        display: block;
-                        // width: 20px;
-                        background: #fff;
-                        height: 28px;
-                        border: 1px solid #b5b7b8;
-                        border-left: 0px;
-                        border-radius: 3px;
-                        border-top-left-radius: 0;
-                        border-bottom-left-radius: 0;
-                        line-height: 28px;
-                        text-align: center;
-                        padding:0 5px;
+                    .cancel {
+                        margin: 0;
+                        border-radius: 0;
+                        border-top-right-radius: 3px;
+                        border-bottom-right-radius: 3px;
+                        border-left: 0;
+                        .iconfont {
+                            color: #666;
+                        }
                     }
-
-
+                    .save {
+                        border-radius: 0;
+                        border-top-left-radius: 3px;
+                        border-bottom-left-radius: 3px;
+                        line-height: 23px;
+                    }
                 }
-                .setting-panel {
+                .label-box {
                     position: absolute;
-                    width: 180px;
                     z-index: 10;
-                    right: 145px;
+                    right: 0;
                     top: 55px;
                 }
             }

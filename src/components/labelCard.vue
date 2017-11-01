@@ -6,12 +6,12 @@
 		<ul class="item-list">
 			<ul>
 				<li class="item" v-for="(item,index) in labels" @click="clickHandle(index)">
-					<i class="el-icon-check" :style="iconStyle(item)"></i>
+					<i class="iconfont icon-dui" :style="iconStyle(item)"></i>
 					<div class="label">
 						<div class="color-box" :style="{background: item.color}"></div>
 						<span class="label-name">{{item.name}}</span>
 					</div>
-					<i class="el-icon-close" :style="iconStyle(item)"></i>
+					<i class="iconfont icon-cross" :style="iconStyle(item)"></i>
 				</li>
 			</ul>
 		</ul>
@@ -113,17 +113,21 @@ export default {
 				background: #f4f4f5;
 			}
 			i {
-				font-size: 12px;
 				font-weight: 800;
-				color: rgba(0,0,0,0);
+				color: rgba(0, 0, 0, 0);
 			}
-			i.el-icon-close {
+			i.icon-cross {
 				cursor: pointer;
+				font-size: 15px;
+				font-weight: 900;
+			}
+			i.icon-dui {
+				font-size: 13px;
 			}
 			.label {
 				display: inline-block;
 				cursor: pointer;
-				width: 220px;
+				width: 210px;
 				.color-box {
 					display: inline-block;
 					height: 14px;

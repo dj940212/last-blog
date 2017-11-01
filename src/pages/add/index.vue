@@ -33,7 +33,8 @@
                 </div>
             </div>
             <div class="content-inner">
-                <div id="pen" data-toggle="pen" ref="pen">
+                <div id="pen" data-toggle="pen" ref="content">
+                    <p></p>
                     <p></p>
                 </div>
             </div>
@@ -57,7 +58,7 @@ export default {
     mounted() {
     	require('@/common/js/pen.js')
     	require('@/common/js/markdown.js')
-    	this.$refs.pen.innerHTML = '在此书写...'
+    	this.$refs.content.innerHTML = '在此书写...'
         this.init()
         this.pen.rebuild()
         this.pen.focus()
@@ -71,7 +72,7 @@ export default {
     	init() {
             const options = {
                 // toolbar: document.getElementById('custom-toolbar'),
-                editor: this.$refs.pen,
+                editor: this.$refs.content,
                 debug: true,
                 list: [
                   'insertimage', 'blockquote', 'h2', 'h3', 'p', 'code', 'insertorderedlist', 'insertunorderedlist', 'inserthorizontalrule','indent', 'outdent', 'bold', 'italic', 'underline', 'createlink'
@@ -92,7 +93,7 @@ export default {
                 var file = files[0];
                 var reader = new FileReader();//new一个FileReader实例
                 reader.onload = function() {
-                    that.$refs.pen.innerHTML = marked(this.result)
+                    that.$refs.content.innerHTML = marked(this.result)
                 }
                 reader.readAsText(file);
             }
@@ -104,11 +105,11 @@ export default {
         async publish() {
             console.log("发布")
             this.codeHighlight()
-            const htmlContent = this.$refs.pen.innerHTML
+            const htmlContent = this.$refs.content.innerHTML
 
             !this.writeDesc && this.$refs.writeDesc.focus()
             !this.writeTitle && this.$refs.writeTitle.focus()
-            !htmlContent && this.$refs.pen.focus()
+            !htmlContent && this.$refs.content.focus()
 
             if (!this.writeTitle && !this.writeDesc && !htmlContent) return alert('信息不完整')
             if (!this.token) return alert('请登录')

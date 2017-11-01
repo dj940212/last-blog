@@ -21,7 +21,7 @@
                 @click.native = "clickHandle"
             >{{type==="change" ? "Save change" : "Create label"}}</v-button>
         </div>
-		<el-color-picker v-model="color"></el-color-picker>
+		<!-- <el-color-picker v-model="color"></el-color-picker> -->
     </div>
 </template>
 <script>
