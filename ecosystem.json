@@ -3,7 +3,7 @@
   "apps" : [
     {
     "name"      : "Website",
-    "script"    : "app.js",
+    "script"    : "npm run product",
     "env": {
       "COMMON_VARIABLE": "true"
     },
@@ -24,9 +24,9 @@
       // Branch
       "ref"  : "origin/master",
       // Git repository to clone
-      "repo" : "git@github.com:dj940212/vue-blog.git",
+      "repo" : "https://github.com/dj940212/last-blog.git",
       // Path of the application on target servers
-      "path" : "/home/user_dj/project/vue-blog",
+      "path" : "/home/user_dj/project/last-blog",
       // Can be used to give options in the format used in the configura-
       // tion file.  This is useful for specifying options for which there
       // is no separate command-line flag, see 'man ssh' 
