@@ -25,7 +25,7 @@ export default new Router({
         component: Add
     },{
         path: '/login',
-        component: Login 
+        components: {login: Login} 
     },{
         path: '/labels',
         component: Labels

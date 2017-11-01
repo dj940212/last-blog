@@ -2,10 +2,13 @@
     <div class="login">
         <div class="login-inner">
             <div class="logo">
-                <a href=""></a>
+                <div class="logo-inner">
+                    <i class="iconfont icon-github"></i>
+                </div>
+                
             </div>
             <div class="title">
-                <h1>Sign in to GitBlog</h1>
+                <h1>Sign in to Last Blog</h1>
             </div>
             <div class="main">
                 <form action="">
@@ -63,19 +66,27 @@
         width: 100%;
         background-color: #f9f9f9;
         position: absolute;
+        z-index: 100;
         .login-inner {
             width: 308px;
             margin: 0 auto;
             .logo {
                 padding-top: 52px;
                 padding-bottom: 24px;
-                a{
+                .logo-inner{
                     display: block;
                     width: 48px;
                     height: 48px;
-                    background-color: #666;
+                    background-color: #fff;
                     margin: 0 auto;
                     border-radius: 50%;
+                    line-height: 48px;
+                    text-align: center;
+                    .icon-github {
+                        font-size: 40px;
+                        position: relative;
+                        top: 5px;
+                    }
                 }
             }
             .title {

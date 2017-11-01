@@ -2,7 +2,7 @@
     <header class="header">
         <div class="header-inner">
             <div class="box">
-                <div class="logo-box">
+                <div class="logo-box" @click="toPages('/')">
                     <i class="iconfont icon-github"></i>
                 </div>
                 <div class="search-box">
@@ -78,6 +78,7 @@ export default {
                     background: #fff;
                     text-align: center;
                     line-height: 32px;
+                    cursor: pointer;
                     .icon-github {
                         font-size: 30px;
                         position: relative;
