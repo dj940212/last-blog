@@ -184,10 +184,9 @@ export default {
                     title: this.updateTitle,
                     description: this.updateDesc,
                     content: htmlContent,
-                    _id: this.$route.query._id,
+                    _id: this.$route.params._id,
                 },
                 headers: {'x-access-token': this.token},
-                withCredentials: true
             })
 
             // 绑定到变量

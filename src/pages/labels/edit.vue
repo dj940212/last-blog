@@ -38,13 +38,6 @@ export default {
 			this.name = this.label.name
 		}
 	},
-    beforeUpdate() {
-        if(this.type ==="change") {
-            console.log("change",this.label)
-            this.color = this.label.color,
-            this.name = this.label.name
-        }
-    },
 	props: {
 		show: {
 			type: Boolean,

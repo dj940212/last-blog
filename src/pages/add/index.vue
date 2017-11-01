@@ -127,7 +127,7 @@ export default {
         
             })
 
-            this.$router.push({ path: '/article', query: { _id: res.data.data._id }})
+            this.$router.push({ path: `/article/${res.data.data._id}`})
                 
             // 更新本地列表
             if (this.articleList.length) {
