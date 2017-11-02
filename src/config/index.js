@@ -1,5 +1,5 @@
-let baseUrl = "http://localhost:8086/"
-// let baseUrl = "http://59.110.164.55:8086/"
+// let baseUrl = "http://localhost:8086/"
+let baseUrl = "http://59.110.164.55:8086/"
 
 export default {
 	api: {
