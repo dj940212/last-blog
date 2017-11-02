@@ -55,7 +55,6 @@
 </template>
 
 <script>
-import marked from 'marked'
 import hljs from 'highlight.js'
 import axios from 'axios'
 import {mapGetters, mapMutations} from 'vuex'
@@ -79,8 +78,6 @@ export default {
         this.$refs.pen.innerHTML = this.article.content
         this.init()
         this.pen.destroy();
-    },
-    beforeUpdate() {
     },
     computed: {
         ...mapGetters([
@@ -218,7 +215,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    @import '../../common/less/index.less';
+    @import '../../common/less/variable.less';
     .editor{
         margin-bottom: 50px;
         .title {

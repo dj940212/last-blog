@@ -1,11 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Add from '@/pages/add'
-// import List from '@/pages/list'
-// import Labels from '@/pages/labels'
-// import Index from '@/pages/index'
-// import Login from '@/pages/login'
-// import Article from '@/pages/article'
 
 const Index = () => import('@/pages/index')
 const Add = () => import('@/pages/add')

@@ -92,7 +92,9 @@ var webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
+    // 忽略不需要的文件
+    // new webpack.ContextReplacementPlugin(/highlight[\/\\]languages$/, /javascript/)
   ]
 })
 

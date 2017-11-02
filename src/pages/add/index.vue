@@ -157,7 +157,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-    @import '../../common/less/index.less';
+    @import '../../common/less/variable.less';
     .editor{
         margin-bottom: 50px;
         .title {
