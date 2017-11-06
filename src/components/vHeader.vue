@@ -5,13 +5,11 @@
                 <div class="logo-box" @click="toPages('/')">
                     <i class="iconfont icon-github" ></i>
                 </div>
-                <div class="menu-icon" @click="dropMenu = !dropMenu">
-                    <i class="iconfont icon-xiaoxi"></i>
-                </div>
+                <div class="menu-icon" @click="dropMenu = !dropMenu"></div>
                 <div class="search-box">
                     <input type="text" name="" value="" placeholder="Search Blog">
                 </div>
-                <div class="header-menu" v-show="false">
+                <div class="header-menu">
                     <ul>
                         <li class="menu-item" @click="toPages('/')">Overview</li>
                         <li class="menu-item" @click="toPages('/articles')">Articles</router-link></li>
@@ -104,8 +102,11 @@ export default {
                 }
                 .menu-icon {
                     display: none;
-                    width: 30px;
+                    width: 24px;
+                    height: 24px;
                     color: rgba(255, 255, 255,0.75);
+                    margin-right: 10px;
+                    background-image: url(http://ovs5x36k4.bkt.clouddn.com/%E8%8F%9C%E5%8D%95.png);
                     &:hover {
                         color: #fff ;
                     }
