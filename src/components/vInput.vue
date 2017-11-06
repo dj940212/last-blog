@@ -16,6 +16,10 @@ export default {
 			type: String,
 			default: '200px'
 		},
+		maxWidth: {
+			type: String,
+			default: '200px'
+		},
 		height: {
 			type: String,
 			default: '36px'

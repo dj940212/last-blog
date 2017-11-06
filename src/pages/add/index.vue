@@ -342,16 +342,27 @@ export default {
     }
 }
 @media screen and (max-width: 800px) {
-    .title {
-        .title-box {
-            .title-inner {
-               input{
-                    width: 200px;
-                } 
+    .editor {
+        pa
+        .title {
+            .title-box {
+                .title-inner {
+                   input{
+                        width: 180px;
+                    } 
+                }
+            }
+            .tool {
+                margin-right: 10px;
             }
             
         }
-        
+        .description {
+            margin: 20px 10px;
+        }
+        .content {
+            margin: 0 10px;
+        }
     }
 }
 </style>

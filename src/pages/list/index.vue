@@ -133,6 +133,9 @@ export default {
             margin:0 10px;
             padding: 8px 0;
             padding-right: 0;
+            h5 {
+                font-size: 16px;
+            }
             .desc {
                 margin: 5px 0 12px 0;
             }

@@ -3,12 +3,15 @@
         <div class="header-inner">
             <div class="box">
                 <div class="logo-box" @click="toPages('/')">
-                    <i class="iconfont icon-github"></i>
+                    <i class="iconfont icon-github" ></i>
+                </div>
+                <div class="menu-icon" @click="dropMenu = !dropMenu">
+                    <i class="iconfont icon-xiaoxi"></i>
                 </div>
                 <div class="search-box">
                     <input type="text" name="" value="" placeholder="Search Blog">
                 </div>
-                <div class="header-menu">
+                <div class="header-menu" v-show="false">
                     <ul>
                         <li class="menu-item" @click="toPages('/')">Overview</li>
                         <li class="menu-item" @click="toPages('/articles')">Articles</router-link></li>
@@ -24,7 +27,13 @@
                 <div class="login" v-show="!isLogin" @click="login">Login</div>
             </div>
         </div>
-        <div class="drop-menu">
+        <div class="drop-menu" v-show="dropMenu">
+            <ul>
+                <li class="menu-item" @click="toPages('/')">Overview</li>
+                <li class="menu-item" @click="toPages('/articles')">Articles</router-link></li>
+                <li class="menu-item" @click="toPages('/labels')">Labels</li>
+                <li class="menu-item">About</li>
+            </ul>
         </div>
     </header>
 </template>
@@ -34,6 +43,11 @@ export default {
     name: 'vHeader',
     mounted() {
         
+    },
+    data() {
+        return {
+            dropMenu: false,
+        }
     },
     methods: {
         ...mapMutations({
@@ -47,6 +61,7 @@ export default {
         },
         toPages(route) {
             this.$router.push(route)
+            this.dropMenu = false
         },
 
     },
@@ -87,6 +102,17 @@ export default {
                         // right: 1px;
                     }
                 }
+                .menu-icon {
+                    display: none;
+                    width: 30px;
+                    color: rgba(255, 255, 255,0.75);
+                    &:hover {
+                        color: #fff ;
+                    }
+                    &:visited {
+                        color: #c8c9cb;
+                    }
+                }
                 .search-box {
                     input {
                         box-sizing: border-box;
@@ -123,9 +149,6 @@ export default {
                                 color: #c8c9cb;
                             }
                         }
-                    }
-                    .router-link-exact-active {
-                        color: #fff;
                     }
                 }
             }
@@ -173,6 +196,29 @@ export default {
                 }
             }
         }
+        .drop-menu {
+            ul {
+                display: flex;
+                margin: 0;
+                padding: 0;
+                justify-content: center;
+                flex-direction: column;
+                .menu-item {
+                    list-style: none;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-size: 14px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    margin: 10px 15px;
+                    &:hover {
+                        color: #fff ;
+                    }
+                    &:visited {
+                        color: #c8c9cb;
+                    }
+                }
+            }
+        }
     }
     @media screen and (max-width: 800px) {
         .header {
@@ -181,18 +227,22 @@ export default {
                 .box {
                     .search-box {
                         input {
-                            display: none;
+                            // display: none;
+                            width: 150px;
                         }
                     }
                     .header-menu {
-                        ul {
-                            .menu-item {
-                                margin-left: 8px;
-                            }
-                        }
+                        display: none;
+                    }
+                    .logo-box {
+                        display: none;
+                    }
+                    .menu-icon {
+                        display: block;
                     }
                 }
             }
+
         }
     }
 </style>
