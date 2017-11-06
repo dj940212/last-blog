@@ -16,7 +16,6 @@
                         <li class="menu-item">About</li>
                     </ul>
                 </div>
-
             </div>
             <div class="icon-box">
                 <div class="message"><i class="iconfont icon-xiaoxi"></i></div>
@@ -24,6 +23,8 @@
                 <div class="avatar" v-show="isLogin"></div>
                 <div class="login" v-show="!isLogin" @click="login">Login</div>
             </div>
+        </div>
+        <div class="drop-menu">
         </div>
     </header>
 </template>
@@ -97,10 +98,10 @@ export default {
                         padding: 0 8px;
                         color: rgba(255, 255, 255, 0.75);
                         line-height: 18px;
-                        // font-size: 16px;
                         &:focus {
                             outline: none;
                         }
+                        
                     }
                 }
                 .header-menu {
@@ -171,7 +172,27 @@ export default {
                     }
                 }
             }
-
+        }
+    }
+    @media screen and (max-width: 800px) {
+        .header {
+            .header-inner {
+                padding:0 10px;
+                .box {
+                    .search-box {
+                        input {
+                            display: none;
+                        }
+                    }
+                    .header-menu {
+                        ul {
+                            .menu-item {
+                                margin-left: 8px;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 </style>

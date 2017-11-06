@@ -62,15 +62,26 @@ export default {
     width: 100%;
     display: flex;
     padding: 15px 0;
-    border-bottom: 1px solid @border-color;
     flex-wrap: wrap;
     .label {
         margin: 4px;
         cursor: pointer;
-        .artCount {
-            // background: red;
-            // color: #eee;
+    }
+}
+@media screen and (max-width: 800px){
+    .label-menu {
+        padding: 5px 0;
+        justify-content: center;
+        .label {
+            margin: 2px;
+            .v-button button {
+                padding: 0 5px;
+            }
+            i {
+                display:none;
+            }
         }
     }
+    
 }
 </style>

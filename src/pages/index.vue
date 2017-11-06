@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="overview">
         <div class="popular">
-            <p class="name">Popular articles</p>
+            <p class="name">Rencent Articles</p>
             <div class="article-box">
                 <li class="article" v-for="(item, index) in popularArticle">
                     <h5 class="title" @click="toReadArticle(index)">{{item.title}}</h5>
@@ -82,19 +82,24 @@ export default {
 <style lang="less" scoped>
     @import '../common/less/variable.less';
     .overview {
-        width: @content-width;
+        max-width: @content-width;
         margin: 0 auto;
         .popular {
             .name{
                 font-size: 16px;
                 padding-top: 20px;
                 margin: 0;
-                font-weight: 300;
+                font-weight: 400;
+                color: #333;
+                @media screen and (max-width: 800px) {
+                    margin:5px 5px;
+                    padding-top: 10px;
+                }
             }
             .article-box {
                 display: flex;
                 flex-direction: row;
-                width: @content-width;
+                max-width: @content-width;
                 justify-content: space-between;
                 flex-wrap: wrap;
                 padding: 0;
@@ -109,6 +114,9 @@ export default {
                     border-radius: 3px;
                     margin: 10px 0;
                     padding: 16px;
+                    @media screen and (max-width: 800px) {
+                        margin:5px 5px;
+                    }
                     h5 {
                         font-weight: 600;
                         cursor: pointer;
@@ -136,6 +144,11 @@ export default {
                             top: -2px;
                         }
                     }
+                }
+            }
+            .map {
+                @media screen and (max-width: 800px) {
+                    display: none;
                 }
             }
         }

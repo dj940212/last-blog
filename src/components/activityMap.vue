@@ -125,7 +125,7 @@ export default {
             color: #333;
 		}
 		.map-inner {
-			width: @content-width;
+			max-width: @content-width;
 			// height: 170px;
 			border: 1px solid @border-color;
 			border-radius: 3px;

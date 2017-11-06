@@ -67,7 +67,7 @@
     @import '../../common/less/variable.less';
     .labels {
         .labels-inner {
-            width: @content-width;
+            max-width: @content-width;
             margin: 0 auto;
             margin-top: 20px;
             .labels-header {
@@ -97,6 +97,13 @@
                     list-style: none;
                 }
 
+            }
+        }
+    }
+    @media screen and (max-width: 800px) {
+        .labels {
+            .labels-inner {
+                margin: 5px;
             }
         }
     }

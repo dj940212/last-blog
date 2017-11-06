@@ -85,10 +85,14 @@ export default {
 <style lang="less">
 @import '../../common/less/variable.less';
 .articleList {
-    width: @content-width;
+    max-width: @content-width;
     margin: 0 auto;
     ul {
         padding-left: 0px;
+        li:nth-child(1){
+            border-bottom: 1px solid @border-color;
+            border-top: 1px solid @border-color;
+        }
         li {
             list-style: none;
             border-bottom: 1px solid @border-color;
@@ -96,7 +100,7 @@ export default {
             padding-right: 30%;
             h5 {
                 font-weight: 600;
-                font-size: 18px;
+                font-size: 17px;
                 cursor: pointer;
                 color: @title-color;
             }
@@ -122,11 +126,17 @@ export default {
             }
         }
     }
-    .loading {
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
-        cursor: pointer;
+}
+@media screen and (max-width: 800px) {
+    .articleList {
+        ul li {
+            margin:0 10px;
+            padding: 8px 0;
+            padding-right: 0;
+            .desc {
+                margin: 5px 0 12px 0;
+            }
+        }
     }
 }
 </style>

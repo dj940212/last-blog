@@ -157,195 +157,201 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-    @import '../../common/less/variable.less';
-    .editor{
-        margin-bottom: 50px;
-        .title {
-            height: 69px;
-            border-bottom: 1px solid @border-color;
-            background-color: #fafbfc;
-            font-size: 16px;
-            .title-box{
-                justify-content: space-between;
-                width: @content-width;
-                margin: 0 auto;
-                display: flex;
-                position: relative;
-                .title-inner {
-                    box-sizing: border-box;
-                    height: 69px;
-                    display: flex;
-                    align-items: center;
-                    strong {
-                        line-height: 16px;
-                        margin-left: 10px;
-                        color: #0366d6;
-                        font-size: 16px;
-                    }
-                    input {
-                        box-sizing: border-box;
-                        border: 1px solid #d1d5da;
-                        border-radius: 3px;
-                        color: #24292e;
-                        font-size: 14px;
-                        padding: 6px 8px;
-                        box-shadow: inset 0 1px 2px rgba(27,31,35,0.075);
-                        background-color: #fafbfc;
-                        width: 300px;
-                        height: 36px;
-                        margin-left: 10px;
-                    }
-                    button {
-                        color: #24292e;
-                        height: 28px;
-                        border-radius: 3px;
-                        box-shadow:0;
-                        background-color: #eff3f6;
-                        border: 1px solid @border-color;
-                        // align-self: end;
-                    }
-                }
-                .tool {
-                    align-self: center;
-                    display: flex;
-                    .watch {
-                        cursor: pointer;
-                        margin-left: 5px;
-                        height: 28px;
-                        background: #eff3f6;
-                        border: 1px solid rgba(27,31,35,0.2);
-                        border-radius: 3px;
-                        // line-height: 28px;
-                        padding: 0 10px;
-                        font-size: 16px;
-                        .iconfont {
-                            font-size: 20px;
-                            position: relative;
-                            color: #444;
-                            top: 3px;
-                        }
-                    }
-
-                }
-            }
-
-        }
-        .description {
-            width: @content-width;
-            display: flex;
-            margin: 20px auto;
+@import '../../common/less/variable.less';
+.editor{
+    margin-bottom: 50px;
+    .title {
+        height: 69px;
+        border-bottom: 1px solid @border-color;
+        background-color: #fafbfc;
+        font-size: 16px;
+        .title-box{
             justify-content: space-between;
-
-            .desContent {
-                font-size: 14px;
-                color: rgba(0, 0, 0, 0.7);
-                // font-style: italic;
-                // line-height: 20px;
-                letter-spacing: 1px;
-                width: 80%;
-            }
-            input {
-                box-sizing: border-box;
-                border: 1px solid #d1d5da;
-                border-radius: 3px;
-                color: #24292e;
-                font-size: 14px;
-                padding: 6px 8px;
-                box-shadow: inset 0 1px 2px rgba(27,31,35,0.075);
-                background-color: #fafbfc;
-                width: 100%;
-                height: 36px;
-            }
-        }
-        .toolbar {
-            width: @content-width;
+            max-width: @content-width;
             margin: 0 auto;
-            border: 1px solid @border-color;
-            border-bottom: 1px solid #fff;
-            border-radius: 3px;
-            ul {
-                display: flex;
-                justify-content: space-around;
-                li{
-                    list-style: none;
-                    cursor: pointer;
-                }
-            }
-        }
-        .content {
-            border: 1px solid @border-color;
-            border-radius: 3px;
-            width: @content-width;
-            margin:0 auto;
-            .header {
+            display: flex;
+            position: relative;
+            .title-inner {
                 box-sizing: border-box;
-                height: 38px;
-                border-bottom: 1px solid @border-color;
-                background: #f6f8fa;
+                height: 69px;
                 display: flex;
                 align-items: center;
-                padding: 9px 10px 10px;
-                position: relative;
-                span {
-                    margin-left: 4px;
+                strong {
+                    line-height: 16px;
+                    margin-left: 10px;
+                    color: #0366d6;
+                    font-size: 16px;
+                }
+                input {
+                    box-sizing: border-box;
+                    border: 1px solid #d1d5da;
+                    border-radius: 3px;
+                    color: #24292e;
                     font-size: 14px;
-                    font-weight: 600;
-                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
-                    line-height: 20px;
+                    padding: 6px 8px;
+                    box-shadow: inset 0 1px 2px rgba(27,31,35,0.075);
+                    background-color: #fafbfc;
+                    width: 300px;
+                    height: 36px;
+                    margin-left: 10px;
                 }
-                .icon-box > .iconfont {
-                    margin-left: 8px;
-                    position: relative;
-                    top: -7px;
-                    right: 5px;
-                }
-                .icon-box {
+                button {
                     color: #24292e;
                     height: 28px;
                     border-radius: 3px;
-                    position: absolute;
                     box-shadow:0;
-                    margin-right: 10px;
-                    line-height: 28px;
-                    right: 0;
-                    color: #555;
+                    background-color: #eff3f6;
+                    border: 1px solid @border-color;
+                    // align-self: end;
+                }
+            }
+            .tool {
+                align-self: center;
+                display: flex;
+                .watch {
                     cursor: pointer;
-                    .upload{
-                            display: inline-block;
-                            position: relative;
-                            cursor: pointer;
-                            width: 25px;
-                            height: 25px;
-                            left: 5px;
-                            cursor: pointer;
-                            input {
-                                width: 25px;
-                                position: absolute;
-                                top: 5px;
-                                right: 2px;
-                                opacity: 0;
-                                cursor: pointer;
-                            }
-                            .iconfont{
-                                left: 0px;
-                                font-size: 22px;
-                                position: absolute;
-                                cursor: pointer;
-                            }
+                    margin-left: 5px;
+                    height: 28px;
+                    background: #eff3f6;
+                    border: 1px solid rgba(27,31,35,0.2);
+                    border-radius: 3px;
+                    padding: 0 10px;
+                    font-size: 16px;
+                    .iconfont {
+                        font-size: 20px;
+                        position: relative;
+                        color: #444;
+                        top: 3px;
                     }
-                    
                 }
-                .babel {
-                    margin-right: 93px;
-                }
-            }
-            .content-inner {
-                padding:30px 45px;
-            }
-        }
-        .publish {
 
-            float: right;
+            }
         }
     }
+    .description {
+        max-width: @content-width;
+        display: flex;
+        margin: 20px auto;
+        justify-content: space-between;
+        .desContent {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.7);
+            // font-style: italic;
+            // line-height: 20px;
+            letter-spacing: 1px;
+            width: 80%;
+        }
+        input {
+            box-sizing: border-box;
+            border: 1px solid #d1d5da;
+            border-radius: 3px;
+            color: #24292e;
+            font-size: 14px;
+            padding: 6px 8px;
+            box-shadow: inset 0 1px 2px rgba(27,31,35,0.075);
+            background-color: #fafbfc;
+            width: 100%;
+            height: 36px;
+        }
+    }
+    .toolbar {
+        max-width: @content-width;
+        margin: 0 auto;
+        border: 1px solid @border-color;
+        border-bottom: 1px solid #fff;
+        border-radius: 3px;
+        ul {
+            display: flex;
+            justify-content: space-around;
+            li{
+                list-style: none;
+                cursor: pointer;
+            }
+        }
+    }
+    .content {
+        border: 1px solid @border-color;
+        border-radius: 3px;
+        max-width: @content-width;
+        margin:0 auto;
+        .header {
+            box-sizing: border-box;
+            height: 38px;
+            border-bottom: 1px solid @border-color;
+            background: #f6f8fa;
+            display: flex;
+            align-items: center;
+            padding: 9px 10px 10px;
+            position: relative;
+            span {
+                margin-left: 4px;
+                font-size: 14px;
+                font-weight: 600;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI";
+                line-height: 20px;
+            }
+            .icon-box > .iconfont {
+                margin-left: 8px;
+                position: relative;
+                top: -7px;
+                right: 5px;
+            }
+            .icon-box {
+                color: #24292e;
+                height: 28px;
+                border-radius: 3px;
+                position: absolute;
+                box-shadow:0;
+                margin-right: 10px;
+                line-height: 28px;
+                right: 0;
+                color: #555;
+                cursor: pointer;
+                .upload{
+                        display: inline-block;
+                        position: relative;
+                        cursor: pointer;
+                        width: 25px;
+                        height: 25px;
+                        left: 5px;
+                        cursor: pointer;
+                        input {
+                            width: 25px;
+                            position: absolute;
+                            top: 5px;
+                            right: 2px;
+                            opacity: 0;
+                            cursor: pointer;
+                        }
+                        .iconfont{
+                            left: 0px;
+                            font-size: 22px;
+                            position: absolute;
+                            cursor: pointer;
+                        }
+                }
+                
+            }
+            .babel {
+                margin-right: 93px;
+            }
+        }
+        .content-inner {
+            padding:30px 45px;
+        }
+    }
+}
+@media screen and (max-width: 800px) {
+    .title {
+        .title-box {
+            .title-inner {
+               input{
+                    width: 200px;
+                } 
+            }
+            
+        }
+        
+    }
+}
 </style>

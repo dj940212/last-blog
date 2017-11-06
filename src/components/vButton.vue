@@ -23,9 +23,10 @@ export default {
 	methods: {
 		changeColor() {
 			const num = colorNum(this.background)
-			if (num > 8388607) {
+			if (num > 11388607) {
 				this.color = "#333026"
 			}
+			// this.color = "#fff"
 		}
 	},
 	props: {
@@ -62,8 +63,6 @@ export default {
 		button {
             background-image: linear-gradient(-180deg, #34d058 0%, #28a745 90%);
             border: 1px solid transparent;
-            // box-shadow: inset 0 -1px 0 rgba(27,31,35,0.12);
-            // color: #fff;
             padding: 0 10px;
             font-weight: 600px !important;
             border-radius: 3px;

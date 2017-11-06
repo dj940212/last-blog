@@ -13,13 +13,13 @@
                     fontSize="14px"
                     icon="iconfont icon-bianji-copy-copy"
                     @click.native = "$emit('click')"
-                >Edit</v-button>
+                ></v-button>
                 <v-button
                     background="#fff"
                     fontSize="14px"
                     icon="iconfont icon-cross"
                     @click.native="delLabel"
-                >Delete</v-button>
+                ></v-button>
             </div>
         </div>
     </div>
@@ -79,8 +79,27 @@ export default {
                 margin-right: 80px;
                 font-size: 14px;
             }
-            button {
-                background: #fff !important;
+            .v-button {
+                button {
+                    background: #fff !important;
+                }
+            }
+            
+        }
+    }
+}
+@media screen and (max-width: 800px) {
+    .item {
+        .normal {
+            .babel-action {
+                .count {
+                    margin-right: 10px;
+                }
+                .v-button {
+                    button {
+                        padding: 0 5px;
+                    }
+                }
             }
         }
     }

@@ -219,21 +219,27 @@ export default {
     .editor{
         margin-bottom: 50px;
         .title {
-            height: 69px;
+            // height: 69px;
             border-bottom: 1px solid @border-color;
             background-color: #fafbfc;
             font-size: 16px;
             .title-box{
                 justify-content: space-between;
-                width: @content-width;
+                max-width: @content-width;
                 margin: 0 auto;
                 display: flex;
                 position: relative;
+                @media screen and (max-width: 800px) {
+                    padding: 0 10px;
+                }
                 .title-inner {
                     box-sizing: border-box;
                     height: 69px;
                     display: flex;
                     align-items: center;
+                    @media screen and (max-width: 800px) {
+                        height: 50px;
+                    }
                     strong {
                         line-height: 16px;
                         margin-left: 10px;
@@ -249,9 +255,10 @@ export default {
                         padding: 6px 8px;
                         box-shadow: inset 0 1px 2px rgba(27,31,35,0.075);
                         background-color: #fafbfc;
-                        width: 300px;
+                        max-width: 300px;
                         height: 36px;
                         margin-left: 10px;
+
                     }
                     button {
                         color: #24292e;
@@ -308,21 +315,23 @@ export default {
                     top: 55px;
                 }
             }
-
         }
         .description {
-            width: @content-width;
+            max-width: @content-width;
             display: flex;
             margin: 20px auto;
             justify-content: space-between;
-
+            @media screen and (max-width: 800px) {
+                padding: 0 10px;
+                margin: 15px auto;
+            }
             .desContent {
                 font-size: 14px;
                 color: rgba(0, 0, 0, 0.7);
                 // font-style: italic;
                 // line-height: 20px;
                 letter-spacing: 1px;
-                width: 80%;
+                // width: 80%;
             }
             input {
                 box-sizing: border-box;
@@ -338,7 +347,7 @@ export default {
             }
         }
         .toolbar {
-            width: @content-width;
+            max-width: @content-width;
             margin: 0 auto;
             border: 1px solid @border-color;
             border-bottom: 1px solid #fff;
@@ -355,8 +364,11 @@ export default {
         .content {
             border: 1px solid @border-color;
             border-radius: 3px;
-            width: @content-width;
+            max-width: @content-width;
             margin:0 auto;
+            @media screen and (max-width: 800px) {
+                margin: 0 5px;
+            }
             .header {
                 box-sizing: border-box;
                 height: 38px;
@@ -427,6 +439,9 @@ export default {
             }
             .content-inner {
                 padding:30px 45px;
+                @media screen and (max-width: 800px) {
+                    padding: 20px 8px;
+                }
             }
         }
         .publish {
