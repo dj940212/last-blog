@@ -27,9 +27,8 @@ npm run build --report
 
 ## 功能预览
 
-![](http://image.dingjian.name/blog/170918/9CcDgKHlIi.gif)
-
-
+![](https://user-gold-cdn.xitu.io/2017/11/4/746fc718ffa7894c4aed7d7036f4109c)
+![](https://user-gold-cdn.xitu.io/2017/11/4/ba43484c281eb20b82c1d92f302fb78c)
 
 ## 预计实现功能
 
