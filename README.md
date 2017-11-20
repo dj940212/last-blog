@@ -6,7 +6,7 @@
 
 ## 启动项目
 
-``` bash
+``` js
 # clone
 git clone git@github.com:dj940212/vue-blog.git
 
@@ -23,7 +23,17 @@ npm run build
 npm run build --report
 ```
 
+> 在`~/server`下创建一个`secretData.js`文件,用于存放密码账号等敏感数据
 
+```
+export default {
+	db: 'mongodb://username:password@ip:port/database',
+	user: {
+        username: 'username',
+        password: 'password'
+    }
+}
+```
 
 ## 功能预览
 
