@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import axios from 'axios'
+// import UserMod from '../models/user'
 import config from '../secretData'
 
 export const verifyToken = (ctx, next) => {
@@ -22,6 +23,16 @@ export const verifyToken = (ctx, next) => {
 	
 }
 
-export const getAccessToken = () => {
-    axios.get()
-}
+// // GitHub access_token
+// export const verifyAccessToken = (ctx, next) => {
+//     // const {username} = ctx.request.body
+//     // return new Promise(function(resolve, reject) {
+//     //     const token = ctx.request.headers["Authorization"] // 从body或query或者header中获取token
+//     //     console.log("获取签名",token)
+
+//     //     const user = await UserMod.findOne({ username: username })
+//     //     if (user){
+//     //         const match = await user.comparePassword(password, user.password)
+//     //     } 
+//     // });
+// }

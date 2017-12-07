@@ -48,7 +48,7 @@ UserSchema.pre('save', function (next) {
 UserSchema.pre('save', function (next) {
 	let user = this
 
-	if (!user.isModified('password')) return next()
+	if (!user.isModified('password') || !user.isModified('access_token')) return next()
 
 	bcrypt.genSalt(SALT_WORK_FACTOR, (error, salt) => {
 		if (error) return next(error)
@@ -56,8 +56,15 @@ UserSchema.pre('save', function (next) {
 			if (error) return next(error)
 			
 			user.password = hash
-			next()	
+
+			bcrypt.hash(user.access_token, salt, (error, hash) => {
+				if (error) return next(error)
+			
+				user.access_token = hash
+				next()	
+			})
 		})
+
 	})
 })
 
@@ -66,6 +73,14 @@ UserSchema.methods = {
 	comparePassword: function (_password, password) {
 		return new Promise((resolve, reject) => {
 			bcrypt.compare(_password, password, function (err, isMatch) {
+				if (!err) resolve(isMatch)
+				else reject(err)
+			})
+		})
+	},
+	compareAccessToken: function (_access_token, access_token) {
+		return new Promise((resolve, reject) => {
+			bcrypt.compare(_access_token, access_token, function (err, isMatch) {
 				if (!err) resolve(isMatch)
 				else reject(err)
 			})

@@ -31,6 +31,10 @@ export default {
 	user: {
         username: 'username',
         password: 'password'
+    },
+    oauth: {
+    	client_id: '',
+    	client_secret: ''
     }
 }
 ```

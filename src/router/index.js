@@ -38,22 +38,4 @@ const router = new Router({
   ]
 })
 
-// 判断登录后再跳转
-// router.afterEach((to, from) => {
-//     if (!cookie.get('dj940212') && to.path === '/auth/callback') {
-//         console.log(to.query.code)
-//         axios.get(config.oauth.getTokenUrl,{params: {
-//             client_id:'0f117211d715eb9eb73e',
-//             client_secret: 'af53da820d42bec5fceb6079e86c56a7b41244b5',
-//             code: to.query.code
-//         }}).then((res) => {
-//             const access_token = res.data.split("&")[0]
-//             axios.get(`https://api.github.com/user?${access_token}`).then((res) => {
-//                 console.log(res.data)
-//             })
-//         })
-//     }
-    
-// })
-
 export default router
