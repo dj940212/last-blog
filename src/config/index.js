@@ -27,7 +27,6 @@ export default {
     },
     oauth: {
         client_id: '0f117211d715eb9eb73e',
-        client_secret: 'af53da820d42bec5fceb6079e86c56a7b41244b5',
         authorizeUrl: 'http://github.com/login/oauth/authorize?client_id=0f117211d715eb9eb73e&scope=user',
         getTokenUrl: '/api/login/oauth/access_token'
     }
