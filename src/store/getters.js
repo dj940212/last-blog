@@ -8,3 +8,4 @@ export const curRoute = state => state.curRoute
 export const labels = state => state.labels
 export const curEdit = state => state.curEdit
 export const allArticles = state => state.allArticles
+export const profile = state => state.profile

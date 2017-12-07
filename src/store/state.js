@@ -5,6 +5,7 @@ const state = {
     currentIndex: -1,
     _id: '',
     isLogin: false,
+    profile: {},
     token: '',
     curRoute: '/',
     labels: [],

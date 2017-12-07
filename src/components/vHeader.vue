@@ -21,8 +21,8 @@
             <div class="icon-box">
                 <div class="message"><i class="iconfont icon-xiaoxi"></i></div>
                 <div class="add" @click="toPages('/new')">+</div>
-                <div class="avatar" v-show="isLogin"></div>
-                <div class="login" v-show="!isLogin" @click="login">Login</div>
+                <img class="avatar" :src="profile.avatar_url" v-show="profile.avatar_url"></img>
+                <div class="login" v-show="!profile.avatar_url" @click="login">Login</div>
             </div>
         </div>
         <div class="drop-menu" v-show="dropMenu">
@@ -37,6 +37,8 @@
 </template>
 <script>
 import {mapMutations, mapGetters} from 'vuex'
+import axios from 'axios'
+import config from '@/config'
 export default {
     name: 'vHeader',
     mounted() {
@@ -54,8 +56,7 @@ export default {
             setCurRoute: 'SET_CUR_ROUTE'
         }),
         login() {
-            this.$router.push('/login')
-            this.setCurRoute(this.$route.fullPath)
+            window.location.href= config.oauth.authorizeUrl
         },
         toPages(route) {
             this.$router.push(route)
@@ -65,7 +66,8 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'isLogin'
+            'isLogin',
+            'profile'
         ])
     }
 }
@@ -173,7 +175,6 @@ export default {
                 .avatar {
                     height: 20px;
                     width: 20px;
-                    background: url(http://ovs5x36k4.bkt.clouddn.com/06.jpg);
                     background-size: 20px 20px;
                     border-radius: 3px;
                     cursor: pointer;

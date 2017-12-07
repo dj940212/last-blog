@@ -5,9 +5,13 @@ import jwt from 'jsonwebtoken'
 const SALT_WORK_FACTOR = 10
 const UserSchema = new mongoose.Schema({
     username: String,
-    token: String,
+    login: String,
+    id: String,
+    access_token: String,
     password: String,
-    avatar: String,
+    avatar_url: String,
+    email: String,
+    html_url: String,
     lockUntil: Number,
     loginAttempts: {
 	    type: Number,

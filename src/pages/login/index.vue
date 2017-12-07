@@ -33,10 +33,14 @@
                 password: ''
             }
         },
+        mounted() {
+            this.getProfile()
+        },
         methods: {
             ...mapMutations({
                 setIsLogin: 'SET_IS_LOGIN',
-                setToken: 'SET_TOKEN'
+                setToken: 'SET_TOKEN',
+                setProfile: 'SET_PROFILE'
             }),
             async signIn() {
                 try {
@@ -51,7 +55,11 @@
                     console.log(e)
                 }
             },
-
+            async getProfile() {
+                const res = await axios.get(config.api.userProfileUrl+this.$route.query.username)
+                this.setProfile(res.data)
+                this.$router.push('/')
+            }
         },
         computed: {
             ...mapGetters([

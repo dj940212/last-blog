@@ -29,6 +29,8 @@ export default () => {
     // user
     router.post('/login', User.login)
     router.post('/logout', verifyToken, User.logout)
+    router.post('/login/github', User.githubLogin)
+    router.get('/auth/callback', User.authCallback)
 
 	return router
 }

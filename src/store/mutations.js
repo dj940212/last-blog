@@ -30,6 +30,9 @@ const mutations = {
     },
     [types.SET_ALL_ARTICLES](state, allArticles) {
         state.allArticles = allArticles
+    },
+    [types.SET_PROFILE](state, profile) {
+        state.profile = profile
     }
 }
 

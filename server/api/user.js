@@ -1,4 +1,6 @@
 import jwt from 'jsonwebtoken'
+import axios from 'axios'
+import config from '../secretData'
 
 export const verifyToken = (ctx, next) => {
     return new Promise(function(resolve, reject) {
@@ -18,4 +20,8 @@ export const verifyToken = (ctx, next) => {
         })
     });
 	
+}
+
+export const getAccessToken = () => {
+    axios.get()
 }
