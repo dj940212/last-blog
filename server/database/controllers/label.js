@@ -76,12 +76,6 @@ class Label {
         }
 
     }
-
-    // async getLabelArts(ctx) {
-    //     const _id = ctx.request.query._id
-    //     let label = await LabelMod.findOne({_id:_id})
-
-    // }
 }
 
 export default new Label()

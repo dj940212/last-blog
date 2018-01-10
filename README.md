@@ -1,4 +1,4 @@
-# GitHub Blog
+# Last Blog
 
 > 一个仿GitHub风格的个人博客,可在线编辑,支持Markdown语法
 

@@ -5,7 +5,6 @@
                 <div class="logo-inner">
                     <i class="iconfont icon-github"></i>
                 </div>
-                
             </div>
             <div class="title">
                 <h1>Sign in to Last Blog</h1>
@@ -45,7 +44,6 @@
             async signIn() {
                 try {
                     const res = await axios.post(config.api.loginUrl,{username: this.username, password: this.password})
-                    console.log(res.data)
                     if (res.data.success) {
                         history.go(-1)
                         this.setIsLogin(true)
