@@ -3,7 +3,7 @@
   "apps" : [
     {
     "name"      : "Website",
-    "script"    : "npm run product",
+    "script"    : "prod.server.js & node ./server/config",
     "env": {
       "COMMON_VARIABLE": "true"
     },
