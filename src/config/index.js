@@ -1,5 +1,5 @@
 // let baseUrl = "http://localhost:8086/"
-let baseUrl = "http://59.110.164.55:8086/"
+let baseUrl = "/"
 
 export default {
 	api: {
@@ -11,13 +11,12 @@ export default {
         'readArticleUrl': baseUrl+'api/article/read',
 		'addLabelUrl': baseUrl+'api/article/addLabel',
 		'delLabelUrl': baseUrl+'api/article/delLabel',
-
         // activity
         'getAllActivityUrl': baseUrl+'api/activity/all',
         'getOneDayActivityUrl': baseUrl+'api/activity/oneDay',
         // user
         'loginUrl': baseUrl+'api/login',
-				// label
+		// label
         'newLabelUrl': baseUrl+'api/label/new',
         'changeLabelUrl': baseUrl+'api/label/update',
         'getLabelsUrl': baseUrl+'api/labels',
