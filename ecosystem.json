@@ -2,7 +2,7 @@
   // Applications part
   "apps" : [
     {
-    "name"      : "Website",
+    "name"      : "last-blog",
     "script"    : "./server/config/index.js",
     "env": {
       "COMMON_VARIABLE": "true"
