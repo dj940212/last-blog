@@ -37,10 +37,13 @@
 </template>
 <script>
 import {mapMutations, mapGetters} from 'vuex'
+import cookie from 'js-cookie'
 export default {
     name: 'vHeader',
     mounted() {
-        
+        if (cookie.get('token')) {
+            this.setIsLogin(true)
+        }
     },
     data() {
         return {

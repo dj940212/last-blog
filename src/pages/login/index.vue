@@ -24,6 +24,7 @@
 </template>
 <script>
     import {mapMutations, mapGetters} from 'vuex'
+    import cookie from 'js-cookie' 
     import config from '@/config'
     import axios from 'axios'
     export default {
@@ -41,11 +42,11 @@
             async signIn() {
                 try {
                     const res = await axios.post(config.api.loginUrl,{username: this.username, password: this.password})
-                    console.log(res.data)
                     if (res.data.success) {
                         history.go(-1)
                         this.setIsLogin(true)
                         this.setToken(res.data.data.token)
+                        cookie.set('token', res.data.data.token, { expires: 1 })
                     }
                 }catch(e) {
                     console.log(e)
