@@ -39,7 +39,6 @@ export default {
         async getLabels() {
             const res = await axios.get(config.api.getLabelsUrl)
             this.setLabels(res.data.data)
-            console.log("labels-list", this.labels)
         },
         getLabelArts(index) {
             const label = this.labels[index]

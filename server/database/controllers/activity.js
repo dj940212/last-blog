@@ -14,6 +14,7 @@ class Activity {
 
         ctx.body = {
             message: 'success',
+            err_code: 0,
             data: data
         }
     }

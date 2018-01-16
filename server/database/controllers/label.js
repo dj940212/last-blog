@@ -14,7 +14,7 @@ class Label {
         if (!label) {
             const newLabel = await new LabelMod({name: name, color: color}).save()
             ctx.body = {
-                success: true,
+                err_code: 0,
                 message: "添加Label成功",
                 data: newLabel
             }
@@ -23,7 +23,7 @@ class Label {
         }
 
         ctx.body = {
-            success: false,
+            err_code: 1,
             message: 'Label已存在',
         }
 
@@ -42,7 +42,7 @@ class Label {
         }
 
         ctx.body = {
-            success: true,
+            err_code: 0,
             message: '删除成功'
         }
     }
@@ -56,7 +56,7 @@ class Label {
                 .sort({'artCount': sort})
 
         ctx.body = {
-            success: true,
+            err_code: 0,
             data: labels
         }
     }
@@ -70,18 +70,12 @@ class Label {
         label = await label.save()
 
         ctx.body = {
-            success: true,
+            err_code: 0,
             message: '修盖label成功',
             data: label
         }
 
     }
-
-    // async getLabelArts(ctx) {
-    //     const _id = ctx.request.query._id
-    //     let label = await LabelMod.findOne({_id:_id})
-
-    // }
 }
 
 export default new Label()

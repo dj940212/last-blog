@@ -32,14 +32,14 @@ class User {
         }
 
         return (ctx.body = {
-            success: false,
+            err_code: 1,
             message: '密码错误'
         })
     }
 
     async logout(ctx) {
         ctx.body = {
-            success: true,
+            err_code: 0,
             message: "登出"
         }
     }

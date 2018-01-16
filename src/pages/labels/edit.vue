@@ -92,15 +92,13 @@ export default {
 			}
 		},
 		async changeLabel() {
-            if (!this.token) return alert("请登录!")
 			const res = await axios({
                 method: "POST",
                 url: config.api.changeLabelUrl,
                 data: {_id: this.label._id, color: this.color, name: this.name},
-                headers: {'x-access-token': this.token},
             })
 
-			if (res.data.success) {
+			if (res.data.err_code===0) {
 				const newLabels = this.labels.slice()
 				newLabels.splice(this.curEdit, 1, res.data.data)
 				this.setLabels(newLabels)

@@ -46,7 +46,6 @@
             async getLabels() {
                 const res = await axios.get(config.api.getLabelsUrl)
                 this.setLabels(res.data.data)
-                console.log("list", this.labels)
             }
         },
         components: {

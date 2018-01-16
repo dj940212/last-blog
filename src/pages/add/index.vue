@@ -103,7 +103,6 @@ export default {
         },
         // 发布新文章
         async publish() {
-            console.log("发布")
             this.codeHighlight()
             const htmlContent = this.$refs.content.innerHTML
 
@@ -111,8 +110,7 @@ export default {
             !this.writeTitle && this.$refs.writeTitle.focus()
             !htmlContent && this.$refs.content.focus()
 
-            if (!this.writeTitle && !this.writeDesc && !htmlContent) return alert('信息不完整')
-            if (!this.token) return alert('请登录')
+            if (!this.writeTitle || !this.writeDesc || !htmlContent) return alert('信息不完整')
 
             const res = await axios({
                 url: config.api.addArticleUrl,
@@ -121,10 +119,7 @@ export default {
                     title: this.writeTitle,
                     content: htmlContent,
                     description: this.writeDesc,
-                    // babel: 'javascript,css,html'
                 },
-                headers: {'x-access-token': this.token}
-        
             })
 
             this.$router.push({ path: `/article/${res.data.data._id}`})

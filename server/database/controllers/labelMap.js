@@ -21,7 +21,7 @@ class LabelMap {
         const articles = await LabelMapMod.find({'label._id': label_id},['article.title'])
 
         ctx.body = {
-            success: true,
+            err_code: 0,
             data: articles
         }
     }
@@ -32,7 +32,7 @@ class LabelMap {
         const labels = await LabelMapMod.find({'article._id': article_id},['label'])
 
         ctx.body = {
-            success: true,
+            err_code: 0,
             data: labels
         }
     }

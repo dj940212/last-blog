@@ -66,7 +66,6 @@ export default {
         async getList() {
           const res = await axios.get(config.api.articleListUrl,{params: {count: 6}})
           this.popularArticle = res.data.data
-          console.log("热门文章",res.data.data)
         },
         getTimeBetween(date) {
            return  fromNow(date)

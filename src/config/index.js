@@ -1,25 +1,22 @@
-// let baseUrl = "http://localhost:8086/"
-let baseUrl = "/"
-
 export default {
 	api: {
         // article
-        'addArticleUrl': baseUrl+'api/article/save',
-        'articleListUrl': baseUrl+'api/article/list',
-        'articleUpdateUrl': baseUrl+'api/article/update',
-        'articleDeleteUrl': baseUrl+'api/article/delete',
-        'readArticleUrl': baseUrl+'api/article/read',
-		'addLabelUrl': baseUrl+'api/article/addLabel',
-		'delLabelUrl': baseUrl+'api/article/delLabel',
+        'addArticleUrl': '/api/article/save',
+        'articleListUrl': '/api/article/list',
+        'articleUpdateUrl': '/api/article/update',
+        'articleDeleteUrl': '/api/article/delete',
+        'readArticleUrl': '/api/article/read',
+		'addLabelUrl': '/api/article/addLabel',
+		'delLabelUrl': '/api/article/delLabel',
         // activity
-        'getAllActivityUrl': baseUrl+'api/activity/all',
-        'getOneDayActivityUrl': baseUrl+'api/activity/oneDay',
+        'getAllActivityUrl': '/api/activity/all',
+        'getOneDayActivityUrl': '/api/activity/oneDay',
         // user
-        'loginUrl': baseUrl+'api/login',
+        'loginUrl': '/api/login',
 		// label
-        'newLabelUrl': baseUrl+'api/label/new',
-        'changeLabelUrl': baseUrl+'api/label/update',
-        'getLabelsUrl': baseUrl+'api/labels',
-        'deleteLabelUrl': baseUrl+'api/label/delete'
+        'newLabelUrl': '/api/label/new',
+        'changeLabelUrl': '/api/label/update',
+        'getLabelsUrl': '/api/labels',
+        'deleteLabelUrl': '/api/label/delete'
     }
 }

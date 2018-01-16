@@ -47,12 +47,13 @@ class Article {
 
         }catch(e) {
             ctx.body = {
+                err_code: 1,
                 message: '保存失败',
             }
         }
 
         ctx.body = {
-            success: 'true',
+            err_code: 0,
             message: '保存成功',
             data: {
                 _id: article._id,
@@ -118,11 +119,13 @@ class Article {
 
         }catch(e) {
             ctx.body = {
+                err_code: 1,
                 message: '更新失败',
             }
         }
 
         ctx.body = {
+            err_code: 0,
             message: '保存成功',
             data: article
         }

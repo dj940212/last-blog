@@ -103,8 +103,10 @@ export default {
             const _id = this.$route.params._id
             const res = await axios.get(config.api.getLabelsUrl)
             const result = await axios.get(config.api.readArticleUrl,{params: {_id:_id} })
+
+            if (result.data.err_code!==0) return
+
             const article = result.data.data
-            console.log("文章",article)
             // 排序，已添加的标签排在前面
             res.data.data.forEach((item,index) => {
                 for (var i = 0; i < article.label.length; i++) {
@@ -172,7 +174,6 @@ export default {
             !htmlContent && this.$refs.pen.focus()
 
             if (!this.updateDesc || !this.updateTitle || !htmlContent) return alert('信息不完整')
-            if (!this.token) return alert("请登录")
 
             const res = await axios({
                 url: config.api.articleUpdateUrl,
@@ -193,12 +194,10 @@ export default {
         },
         // 删除文章
         async deleteArt() {
-            if (!this.token) return alert("请登录!")
             const res = await axios({
                 url: config.api.articleDeleteUrl,
                 method: 'POST',
                 data: {_id: this._id},
-                headers: {'x-access-token': this.token}
             })
             this.$router.push('/articles')
         },
