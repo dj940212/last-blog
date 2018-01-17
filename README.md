@@ -50,7 +50,7 @@ export default {
 
 - [x] 活跃度表格
 
-- [x] 编辑文章支持导入本地markdown文件
+- [x] 导入本地markdown文件
 
 - [x] 代码高亮
 
@@ -67,6 +67,3 @@ export default {
 - [ ] 评论
 
 - [ ] 消息管理
-
-- [ ] 消息管理
-
