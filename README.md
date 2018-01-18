@@ -1,4 +1,4 @@
-# GitHub Blog
+# Last Blog
 
 > 一个仿GitHub风格的个人博客,可在线编辑,支持Markdown语法
 
@@ -22,6 +22,8 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
+
+## 添加配置文件
 
 > 在`~/server`下创建一个`secretData.js`文件,用于存放密码账号等敏感数据
 
