@@ -3,7 +3,7 @@
   "apps" : [
     {
     "name"      : "last-blog",
-    "script"    : "./server/index.js",
+    "script"    : "server/index.js",
     "env": {
       "COMMON_VARIABLE": "true"
     },
