@@ -11,6 +11,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 
-dist
-
 server/config/index.js
