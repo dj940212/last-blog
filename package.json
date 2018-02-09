@@ -5,9 +5,8 @@
   "author": "dj940212 <2902273280@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js & nodemon ./server/config",
-    "product": "node prod.server.js & node ./server/config",
-    "start": "node build/dev-server.js",
+    "dev": "node build/dev-server.js & nodemon ./server",
+    "product": "nodemon ./server",
     "build": "node build/build.js"
   },
   "dependencies": {

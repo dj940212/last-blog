@@ -25,7 +25,7 @@ npm run build --report
 
 ## 添加配置文件
 
-> 在`~/server`下创建一个`secretData.js`文件,用于存放密码账号等敏感数据
+> 在`~/config`下创建一个`index.js`文件,用于存放密码账号等敏感数据
 
 ```
 export default {

@@ -11,4 +11,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 
-server/secretData.js
+dist
+
+server/config/index.js
